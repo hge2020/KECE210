@@ -18,6 +18,10 @@
 1. 난수 발생기 및 사용 모듈 테스트 코드 설계, 회로 다이어그램 설계.
 - Testbench를 통한 난수 발생기 정상 동작 확인.
 - 각 모듈에 대한 정상 동작 확인하는 코드 설계. (*필수)
+	- 7-segment*
+	- number pad*
+	- RGB LED*
+	- Servo motor
 2. 7-segment 및 Number pad, RGB LED로 심플 할리갈리 완성.
 - 간단한 규칙만 적용
 	- 카드 넘기기(Random, 7-seg, RGB LED, number pad)

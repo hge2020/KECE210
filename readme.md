@@ -1,4 +1,4 @@
-# User Guide
+# KECE 210 Final Project
 ## 2조(유민재, 허가은)
 ### 주제: 할리갈리
 ### FPGA module

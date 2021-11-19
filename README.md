@@ -17,6 +17,8 @@
 ### Project Schedule
 1. 난수 발생기 및 사용 모듈 테스트 코드 설계, 회로 다이어그램 설계.
 	- Testbench를 통한 난수 발생기 정상 동작 확인.
+		- mux를 통해 pseudo random generator 만들기
+
 	- 각 모듈에 대한 정상 동작 확인하는 코드 설계. (*필수)
 		- 7-segment* <완>
 		- number pad* <완>
@@ -26,6 +28,10 @@
 	- 간단한 규칙만 적용
 		- 카드 넘기기(Random, 7-seg, RGB LED, number pad)
 		- 종 누르기(Compator, number pad)
+	
+	^^ 이거 구현하기
+
+	
 3. Servo motor 를 추가하여 턴의 느낌을 살림
 	- 저번주에 설계한 심플 할리갈리에 추가 규칙을 적용
 	- 서보 모터를 통해 턴을 확인 가능하게끔 하기.

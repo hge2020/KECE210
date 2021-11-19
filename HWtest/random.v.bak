@@ -1,4 +1,4 @@
-module random (clk, led_out);
+module led (clk, led_out);
 
 input clk;
 output reg [7:0] led_out;

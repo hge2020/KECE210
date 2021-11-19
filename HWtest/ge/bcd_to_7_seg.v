@@ -1,39 +1,6 @@
 // Project 2
 // bcd_to_7_seg.v
 
-module dec_4_to_16 (A, B, C, D, out_dec);
-
-// YOUR CODE FROM dec_4_to_16.v
-
-// 1. DEFINE INPUT (A, B, C, D) AND OUTPUT (out)
-input A, B, C, D;
-output reg [15:0] out_dec;
-
-// 2. WRITE BEHAVIOR MODEL FOR 4-to-16 decoder
-
-always@(*) begin
-	case({A, B, C, D})
-		4'b0000: out_dec <= 16'b0000_0000_0000_0001;
-		4'b0001: out_dec <= 16'b0000_0000_0000_0010;
-		4'b0010: out_dec <= 16'b0000_0000_0000_0100;
-		4'b0011: out_dec <= 16'b0000_0000_0000_1000;
-		4'b0100: out_dec <= 16'b0000_0000_0001_0000;
-		4'b0101: out_dec <= 16'b0000_0000_0010_0000;
-		4'b0110: out_dec <= 16'b0000_0000_0100_0000;
-		4'b0111: out_dec <= 16'b0000_0000_1000_0000;
-		4'b1000: out_dec <= 16'b0000_0001_0000_0000;
-		4'b1001: out_dec <= 16'b0000_0010_0000_0000;
-		4'b1010: out_dec <= 16'b0000_0100_0000_0000;
-		4'b1011: out_dec <= 16'b0000_1000_0000_0000;
-		4'b1100: out_dec <= 16'b0001_0000_0000_0000;
-		4'b1101: out_dec <= 16'b0010_0000_0000_0000;
-		4'b1110: out_dec <= 16'b0100_0000_0000_0000;
-		4'b1111: out_dec <= 16'b1000_0000_0000_0000;
-	endcase
-end
-
-endmodule
-
 module bcd_to_7_seg (bcd_in, seven_seg_out);
 
 input [3:0] bcd_in;
@@ -96,5 +63,40 @@ dec_4_to_16 U0 (bcd_in[3],
 
 assign seven_seg_out = {char_a_out,char_b_out,char_c_out,char_d_out,char_e_out,char_f_out,char_g_out};
 
+
+endmodule
+
+
+
+module dec_4_to_16 (A, B, C, D, out_dec);
+
+// YOUR CODE FROM dec_4_to_16.v
+
+// 1. DEFINE INPUT (A, B, C, D) AND OUTPUT (out)
+input A, B, C, D;
+output reg [15:0] out_dec;
+
+// 2. WRITE BEHAVIOR MODEL FOR 4-to-16 decoder
+
+always@(*) begin
+	case({A, B, C, D})
+		4'b0000: out_dec <= 16'b0000_0000_0000_0001;
+		4'b0001: out_dec <= 16'b0000_0000_0000_0010;
+		4'b0010: out_dec <= 16'b0000_0000_0000_0100;
+		4'b0011: out_dec <= 16'b0000_0000_0000_1000;
+		4'b0100: out_dec <= 16'b0000_0000_0001_0000;
+		4'b0101: out_dec <= 16'b0000_0000_0010_0000;
+		4'b0110: out_dec <= 16'b0000_0000_0100_0000;
+		4'b0111: out_dec <= 16'b0000_0000_1000_0000;
+		4'b1000: out_dec <= 16'b0000_0001_0000_0000;
+		4'b1001: out_dec <= 16'b0000_0010_0000_0000;
+		4'b1010: out_dec <= 16'b0000_0100_0000_0000;
+		4'b1011: out_dec <= 16'b0000_1000_0000_0000;
+		4'b1100: out_dec <= 16'b0001_0000_0000_0000;
+		4'b1101: out_dec <= 16'b0010_0000_0000_0000;
+		4'b1110: out_dec <= 16'b0100_0000_0000_0000;
+		4'b1111: out_dec <= 16'b1000_0000_0000_0000;
+	endcase
+end
 
 endmodule

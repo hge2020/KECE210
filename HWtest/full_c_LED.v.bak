@@ -8,7 +8,7 @@ output  led_1_r, led_1_g, led_1_b,
 
 reg [11:0] out;
 
-/*initial begin
+initial begin
     led_1_r <= 1'b0;
     led_1_g <= 1'b0;
     led_l_b <= 1'b0;
@@ -22,7 +22,7 @@ reg [11:0] out;
     led_4_g <= 1'b0;
     led_4_b <= 1'b0;
 end
-*/
+
 always @(*) begin
     out <= {b12, b11, b10, b9, b8, b7, b6, b5, b4, b3, b2, b1};
 end

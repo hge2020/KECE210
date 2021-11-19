@@ -1,4 +1,7 @@
-module bcd_to_7_seg(bcd_in, seven_seg_out);
+// Project 2
+// bcd_to_7_seg.v
+
+module bcd_to_7_seg (bcd_in, seven_seg_out);
 
 input [3:0] bcd_in;
 output [6:0] seven_seg_out;

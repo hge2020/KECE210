@@ -6,6 +6,21 @@ output  led_1_r, led_1_g, led_1_b,
         led_4_r, led_4_g, led_4_b;
 );
 
+initial begin
+    led_1_r <= 1'b0;
+    led_1_g <= 1'b0;
+    led_l_b <= 1'b0;
+    led_2_r <= 1'b0;
+    led_2_g <= 1'b0;
+    led_2_b <= 1'b0;
+    led_3_r <= 1'b0;
+    led_3_g <= 1'b0;
+    led_3_b <= 1'b0;
+    led_4_r <= 1'b0;
+    led_4_g <= 1'b0;
+    led_4_b <= 1'b0;
+end
+
 always @(*) begin
     case({b12, b11, b10, b9, b8, b7, b6, b5, b4, b3, b2, b1})
 	12'b0000_0000_0001 : led_1_r <= 1'b1;

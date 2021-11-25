@@ -28,7 +28,7 @@ module display (
 );
 
 reg temp;
-reg [6:0] seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8,
+reg [6:0] seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8;
 reg [11:0] r8; // scan data 저장
 reg [2:0] r9; // 써야 할 레지스터 번호
 

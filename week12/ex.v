@@ -71,7 +71,7 @@ endmodule
 module regi (
     input clk, rst, en,
     input [6:0] in,
-    output [6:0] out
+    output reg [6:0] out
 );
 
     reg [6:0] temp;

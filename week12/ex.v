@@ -1,4 +1,4 @@
-module keypad_scan(
+	module keypad_scan(
     input clk, rst
     input [11:0] Keypad_in,
     output reg [11:0] Scan_out,
@@ -7,7 +7,6 @@ module keypad_scan(
 
     assign valid <= 1b'0;
     always @(posedge clk) begin
-       
         if (Keypad_in)begin
             case (valid)
                 1'b0 : begin
@@ -15,11 +14,9 @@ module keypad_scan(
                         valid <= 1'b1;
                 end
                 1'b1 : Scan_out <= 0;
+            endcase
         end
-        
     end
-
-    
 
 endmodule
 
@@ -27,17 +24,35 @@ module display (
     input clk, rst, valid,
     input [11:0] Scan_data,
     output reg [56-1:0] seg,
-    output reg out_en
+    output reg Out_en
 );
 
-    reg [6:0] seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8,
-    reg [11:0] r8; // Scan data 저장
-    reg [2:0] r9; // 써야 할 레지스터 번호
+reg [6:0] seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8,
+reg [11:0] r8; // Scan data 저장
+reg [2:0] r9; // 써야 할 레지스터 번호
 
-assign seg = {seg8, seg7, seg6, seg5, seg4, seg3, seg2, seg1}; //이게 아마... 
+assign Out_en = 1'b0;
+assign r8 = Scan_data;
+
+if (r8 = 12'b1000_0000_0000) r9 = r9 + 1'b1; //#, r9값 증가
+else if(r8 = 12'b0100_0000_0000) Out_en = 1'b1;//*, out_en 생성
+else begin
+    case(r9)
+        3'b000 : seg1 <= r8; //r0
+        3'b001 : seg2 <= r8; //r1
+        3'b010 : seg3 <= r8; //r2
+        3'b011 : seg4 <= r8; //r3
+
+        3'b100 : seg5 <= r8; //r4
+        3'b101 : seg6 <= r8; //r5
+        3'b110 : seg7 <= r8; //r6
+        3'b111 : seg8 <= r8; //r7
+    endcase
+end
+
+assign seg = {seg8, seg7, seg6, seg5, seg4, seg3, seg2, seg1}; //이게 아마... 각 레지스터에 값정리하는거
 
 endmodule
-
 
 
 module regi (
@@ -47,16 +62,10 @@ module regi (
 );
 
     reg [6:0] temp;
-
     always @(posedge clk, rst) begin
-        if (rst) begin
-            out<= 7'b000_0000;
-        end
-        else begin
-            temp <= in;
-        end
+        if (rst) out<= 7'b000_0000;
+        else temp <= in;
     end
-
     assign out = temp;
         
 endmodule
@@ -66,7 +75,6 @@ module rigister_file(
     input [56-1:0] in,
     output [56-1:0] out
 );
-
 regi r0(clk, rst, en, in[6:0], out[6:0]);
 regi r1(clk, rst, en, in[13:7], out[13:7]);
 regi r2(clk, rst, en in[20:14], out[20:14]);

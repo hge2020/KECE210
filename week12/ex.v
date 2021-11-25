@@ -1,4 +1,4 @@
-	module keypad_scan(
+module keypad_scan(
     input clk, rst,
     input [11:0] Keypad_in,
     output reg [11:0] scan_out,

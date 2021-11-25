@@ -5,7 +5,9 @@ module keypad_scan(
     output reg valid
 );
 
-    assign valid = 1'b0;
+    initial begin
+        valid <= 1'b0;
+    end 
     always @(posedge clk) begin
         if (Keypad_in)begin
             case (valid)
@@ -32,8 +34,12 @@ reg [6:0] seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8;
 reg [11:0] r8; // scan data 저장
 reg [2:0] r9; // 써야 할 레지스터 번호
 
-assign Out_en = 1'b0;
-assign r8 = scan_data;
+
+initial begin
+    Out_en <= 1'b0;
+    r8 = scan_data;
+end
+
 always @(posedge clk)begin
     case (r8)
     	12'b0000_0000_0001 : temp <= 7'b0110000; //1

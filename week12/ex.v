@@ -1,11 +1,11 @@
 	module keypad_scan(
-    input clk, rst
+    input clk, rst,
     input [11:0] Keypad_in,
     output reg [11:0] scan_out,
     output reg valid
 );
 
-    assign valid <= 1b'0;
+    assign valid = 1b'0;
     always @(posedge clk) begin
         if (Keypad_in)begin
             case (valid)

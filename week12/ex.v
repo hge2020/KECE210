@@ -5,7 +5,7 @@ module keypad_scan(
     output reg valid
 );
 
-    assign valid = 1b'0;
+    assign valid = 1'b0;
     always @(posedge clk) begin
         if (Keypad_in)begin
             case (valid)
@@ -42,8 +42,8 @@ case (r8)
 	12'b0000_0001_0000 : temp <= 7'b1011011; //5
 	12'b0000_0010_0000 : temp <= 7'b1011111; //6
 	12'b0000_0100_0000 : temp <= 7'b1110010; //7
-	12'b0000_1000_0000 : temp <= 7'b1111111; //8
-	12'b0001_0000_0000 : temp <= 7'b1111011; //9
+    12'b0000_1000_0000 : temp <= 7'b1111111; //8
+    12'b0001_0000_0000 : temp <= 7'b1111011; //9
     12'b0010_0000_0000 : temp <= 7'b1111110; //0
 endcase
 

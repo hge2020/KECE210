@@ -1,7 +1,7 @@
 	module keypad_scan(
     input clk, rst
     input [11:0] Keypad_in,
-    output reg [11:0] Scan_out,
+    output reg [11:0] scan_out,
     output reg valid
 );
 
@@ -22,7 +22,7 @@ endmodule
 
 module display (
     input clk, rst, valid,
-    input [11:0] Scan_data,
+    input [11:0] scan_data,
     output reg [56-1:0] seg,
     output reg Out_en
 );

@@ -48,8 +48,9 @@ always @(posedge clk)begin
         12'b0010_0000_0000 : temp <= 7'b1111110; //0
     endcase
 
-    if (r8 = 12'b1000_0000_0000) r9 = r9 + 1'b1; //#, r9값 증가
-    else if(r8 = 12'b0100_0000_0000) Out_en = 1'b1;//*, out_en 생성
+    if (r8 = 12'b1000_0000_0000) r9 <= r9 + 1'b1;
+    end //#, r9값 증가
+    else if(r8 = 12'b0100_0000_0000) Out_en <= 1'b1;//*, out_en 생성
     else begin
         case(r9)
             3'b000 : seg1 <= temp; //r0

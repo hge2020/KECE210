@@ -1,6 +1,6 @@
 module keypad_scan(
     input clk, rst,
-    input [11:0] Keypad_in,
+    input [11:0] keypad_in,
     output reg [11:0] scan_out,
     output reg valid
 );
@@ -9,10 +9,10 @@ module keypad_scan(
         valid <= 1'b0;
     end 
     always @(posedge clk) begin
-        if (Keypad_in)begin
+        if (keypad_in)begin
             case (valid)
                 1'b0 : begin
-                        scan_out <= Keypad_in;
+                        scan_out <= keypad_in;
                         valid <= 1'b1;
                 end
                 1'b1 : scan_out <= 0;
@@ -26,7 +26,7 @@ module display (
     input clk, rst, valid,
     input [11:0] scan_data,
     output reg [56-1:0] seg,
-    output reg Out_en
+    output reg out_en
 );
 
 reg temp;
@@ -36,7 +36,7 @@ reg [2:0] r9; // 써야 할 레지스터 번호
 
 
 initial begin
-    Out_en <= 1'b0;
+    out_en <= 1'b0;
     r8 = scan_data;
 end
 
@@ -55,7 +55,7 @@ always @(posedge clk)begin
     endcase
 
     if (r8 == 12'b1000_0000_0000) r9 <= r9 + 1'b1; //#, r9값 증가
-    else if(r8 == 12'b0100_0000_0000) Out_en <= 1'b1;//*, out_en 생성
+    else if(r8 == 12'b0100_0000_0000) out_en <= 1'b1;//*, out_en 생성
     else begin
         case(r9)
             3'b000 : seg1 <= temp; //r0
@@ -68,9 +68,9 @@ always @(posedge clk)begin
             3'b110 : seg7 <= temp; //r6
             3'b111 : seg8 <= temp; //r7
         endcase
+        seg <= {seg8, seg7, seg6, seg5, seg4, seg3, seg2, seg1};
     end
 end
-assign seg = {seg8, seg7, seg6, seg5, seg4, seg3, seg2, seg1}; //이게 아마... 각 레지스터에 값정리하는거
 
 endmodule
 
@@ -84,13 +84,13 @@ module regi (
     reg [6:0] temp;
     always @(posedge clk, rst) begin
         if (rst) out<= 7'b000_0000;
-        else temp <= in;
+        else begin temp <= in;
+        out <= temp; end
     end
-    assign out = temp;
         
 endmodule
 
-module rigister_file(
+module register_file(
     input clk, rst, en,
     input [56-1:0] in,
     output [56-1:0] out

@@ -17,6 +17,7 @@ reg temp;
             temp <= 1'b1;
         end
         else if (keypad_in && temp) begin
+            scan_out <= 12'b0;
             valid <= 1'b0;
         end
         else temp <= 1'b0;

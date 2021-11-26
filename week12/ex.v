@@ -127,8 +127,8 @@ reg [2:0] count = 0;
 
 always @(*) begin
     if(~rst) begin
-        seg <= 0;
-        out_en <= 0;
+        data_out <= 0;
+        data_pos <= 0;
     end
 end
 

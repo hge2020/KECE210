@@ -4,21 +4,22 @@ module keypad_scan(
     output reg [11:0] scan_out,
     output reg valid
 );
+reg temp;
 
     initial begin
         valid <= 1'b0;
     end 
     always @(posedge clk) begin
-        if (keypad_in)begin
-            case (valid)
-                1'b0 : begin
-                        scan_out <= keypad_in;
-                        valid <= 1'b1;
-                end
-                1'b1 : scan_out <= 0;
-            endcase
+        temp <= ~temp;
+        always @(keypad_in) begin
+            scan_out <= keypad_in;
+            valid <= 1'b1;
+        end        
+        if (temp) valid <= 1'b0;
+            scan_out <= 0;
         end
     end
+
 
 endmodule
 

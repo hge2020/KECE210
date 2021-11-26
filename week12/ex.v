@@ -8,21 +8,19 @@ reg temp;
 
     initial begin
         valid <= 1'b0;
-        temp <= 0;
+        temp <= 1'b0;
     end 
     always @(posedge clk) begin
-        temp <= ~temp;
-        
-    end
-    always @(keypad_in) begin
-        scan_out <= keypad_in;
-        valid <= 1'b1;
-        if (temp) begin valid <= 1'b0;
-            scan_out <= 0;
+        if (keypad_in && ~temp) begin
+            scan_out <= keypad_in;
+            valid <= 1'b1;
+            temp <= 1'b1;
         end
+        else if (keypad_in && temp) begin
+            valid <= 1'b0;
+        end
+        else temp <= 1'b0;
     end
-
-
 endmodule
 
 

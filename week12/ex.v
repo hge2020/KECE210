@@ -32,7 +32,7 @@ module display (
     output reg out_en
 );
 
-reg temp;
+reg [6:0] temp;
 reg [6:0] seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8;
 reg [11:0] r8; // scan data 저장
 reg [2:0] r9; // 써야 할 레지스터 번호
@@ -41,14 +41,15 @@ always @(*) begin
     if(~rst) begin
         seg <= 0;
         out_en <= 0;
+        r9 <=0;
     end
 end
 
-always @(posedge clk and valid) begin
+always @(posedge clk && valid) begin
     r8 <= scan_data;
 end
 
-always @(posedge clk)begin
+always @(valid)begin
     case (r8)
     	12'b0000_0000_0001 : temp <= 7'b0110000; //1
     	12'b0000_0000_0010 : temp <= 7'b1101101; //2

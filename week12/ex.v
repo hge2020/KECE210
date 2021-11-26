@@ -8,6 +8,7 @@ reg temp;
 
     initial begin
         valid <= 1'b0;
+        temp <= 0;
     end 
     always @(posedge clk) begin
         temp <= ~temp;

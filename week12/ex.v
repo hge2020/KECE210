@@ -34,10 +34,11 @@ reg [6:0] seg1, seg2, seg3, seg4, seg5, seg6, seg7, seg8;
 reg [11:0] r8; // scan data 저장
 reg [2:0] r9; // 써야 할 레지스터 번호
 
-
+always @(*) begin
+    r8 <= scan_data;
+end
 initial begin
     out_en <= 1'b0;
-    r8 = scan_data;
 end
 
 always @(posedge clk)begin
@@ -54,7 +55,7 @@ always @(posedge clk)begin
         12'b0010_0000_0000 : temp <= 7'b1111110; //0
     endcase
 
-    if (r8 == 12'b1000_0000_0000) r9 <= r9 + 1'b1; //#, r9값 증가
+    if (r8 == 12'b1000_0000_0000) begin r9 <= r9 + 1'b1; out_en <= 1'b0; end //#, r9값 증가
     else if(r8 == 12'b0100_0000_0000) out_en <= 1'b1;//*, out_en 생성
     else begin
         case(r9)
@@ -68,6 +69,7 @@ always @(posedge clk)begin
             3'b110 : seg7 <= temp; //r6
             3'b111 : seg8 <= temp; //r7
         endcase
+        out_en <= 1'b0;
         seg <= {seg8, seg7, seg6, seg5, seg4, seg3, seg2, seg1};
     end
 end

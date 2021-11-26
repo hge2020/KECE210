@@ -118,22 +118,22 @@ always @(posedge clk) begin
         count <= count+1'b1;
 
     case(count)
-        3'b000 : begin data_out <= 0000_0001;
-            data_pos <= seg[6:0]; end
-        3'b001 : begin data_out <= 0000_0010;
-            data_pos <= seg[13:7]; end
-        3'b010 : begin data_out <= 0000_0100;
-            data_pos <= seg[20:14]; end
-        3'b011 : begin data_out <= 0000_1000;
-            data_pos <= seg[27:21]; end
-        3'b100 : begin data_out <= 0001_0000;
-            data_pos <= seg[34:28]; end
-        3'b101 : begin data_out <= 0010_0000;
-            data_pos <= seg[41:35]; end
-        3'b110 : begin data_out <= 0100_0000;
-            data_pos <= seg[48:42]; end
-        3'b111 : begin data_out <= 1000_0000;
-            data_pos <= seg[55:49]; end
+        3'b000 : begin data_pos <= 0000_0001;
+            data_out <= seg[6:0]; end
+        3'b001 : begin data_pos <= 0000_0010;
+            data_out <= seg[13:7]; end
+        3'b010 : begin data_pos <= 0000_0100;
+            data_out <= seg[20:14]; end
+        3'b011 : begin data_pos <= 0000_1000;
+            data_out <= seg[27:21]; end
+        3'b100 : begin data_pos <= 0001_0000;
+            data_out <= seg[34:28]; end
+        3'b101 : begin data_pos <= 0010_0000;
+            data_out <= seg[41:35]; end
+        3'b110 : begin data_pos <= 0100_0000;
+            data_out <= seg[48:42]; end
+        3'b111 : begin data_pos <= 1000_0000;
+            data_out <= seg[55:49]; end
     endcase
 end
 endmodule

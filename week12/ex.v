@@ -12,13 +12,14 @@ reg temp;
     end 
     always @(posedge clk) begin
         temp <= ~temp;
-        if (temp) begin valid <= 1'b0;
-            scan_out <= 0;
-        end
+        
     end
     always @(keypad_in) begin
         scan_out <= keypad_in;
         valid <= 1'b1;
+        if (temp) begin valid <= 1'b0;
+            scan_out <= 0;
+        end
     end
 
 

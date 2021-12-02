@@ -145,7 +145,7 @@ begin
                 LCD_RS=1'b1;LCD_DATA=8'b0110_0111;//g
             end
             15:begin
-                LCD_RS=1'b1;LCD_DATA=8'b0101_1110;//n
+                LCD_RS=1'b1;LCD_DATA=8'b0110_1110;//n
             end
             16:begin
                 LCD_RS=1'b1;LCD_DATA=8'b00100000;//void

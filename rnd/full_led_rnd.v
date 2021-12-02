@@ -6,6 +6,8 @@ output  led_1_r, led_1_g, led_1_b,
         led_4_r, led_4_g, led_4_b
 );
 
+reg [11:0] out;
+
 always @(*) begin
     out <= b;
 end
@@ -31,6 +33,6 @@ module top_full_led_rnd(
         led_1_r, led_1_g, led_1_b,
         led_2_r, led_2_g, led_2_b,
         led_3_r, led_3_g, led_3_b,
-        led_4_r, led_4_g, led_4_b)
+        led_4_r, led_4_g, led_4_b);
 
 endmodule

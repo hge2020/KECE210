@@ -1,18 +1,20 @@
 module LFSR (
     input clk,
     input rst,
-    output reg [4:0] rnd
+    output wire [4:0] rnd
 );
     reg [4:0] q, nxt_q;
     reg feedback;
+
+assign rnd = q;
+
 always @(posedge clk, negedge rst) begin
-    if (!rst) rnd <= 5'b00000;
+    if (!rst) q <= 5'b11100;
     else begin
         // q[4:1] <= q[3:0];
         // q[0] <= feedback;
         q <= nxt_q;
     end
-    rnd <= q;
 end
 
 always @(*) begin

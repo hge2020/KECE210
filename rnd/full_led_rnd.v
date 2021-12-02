@@ -28,7 +28,7 @@ module top_full_led_rnd(
 
     wire [12:0] rnd;
 
-    LFSR rand(.clock(clk), .reset(rst), .rnd(rnd));
+    LFSR rand(.clk(clk), .rst(rst), .rnd(rnd));
     full_c_LED fled(rnd[11:0],
         led_1_r, led_1_g, led_1_b,
         led_2_r, led_2_g, led_2_b,

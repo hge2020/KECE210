@@ -13,7 +13,7 @@ begin
  if (~reset)
  begin
   random <= 13'hF; //An LFSR cannot have an all 0 state, thus reset to FF
-  count <= 0;
+  count <= 4'b0;
  end
  
  else
@@ -29,11 +29,11 @@ begin
  count_next = count;
   
   random_next = {random[11:0], feedback}; //shift left the xor'd every posedge clock
-  count_next = count + 1;
+  count_next = count + 4'b0001;
 
- if (count == 13)
+ if (count == 4'b1101)
  begin
-  count = 0;
+  count = 4'b0;
   random_done = random; //assign the random number to output after 13 shifts
  end
  

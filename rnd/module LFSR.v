@@ -39,7 +39,7 @@ begin
  
 end
 
-
-assign rnd = random_done;
+;
+assign rnd = random_done
 
 endmodule

@@ -20,9 +20,9 @@
 		keypad에서 넘기기 버튼이 눌렸는지 감지하여 state를 바꾼다. rand gen에게 enable을 주어 다음 값을 만들어내도록 하고, temp1과 temp2중 어디에 값을 저장할지 알려준다.
 	- rand gen  
 		5bit 무작위 random값을 만든다.
-	- temp1  
+	- card_value1  
 		5bit register. LED와 7seg의 값을 저장한다.
-	- temp2  
+	- card_value2  
 		5bit register. LED와 7seg의 값을 저장한다.
 	- LED  
 		temp1과 temp2의 값(앞 2bit)을 받아와 LED를 색상에 맞게 켠다. *range가 0~3이므로 %3연산

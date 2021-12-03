@@ -48,7 +48,7 @@
 		player 1의 점수를 저장 /inner
 	- 점수 reg2  
 		player 2의 점수를 저장 /inner
-	- 점수 controll  
+	- 점수 control  
 		- 올바르게 친 경우 /inner
 			쌓인개수 counter과 친 사람 판정값을 받아와, 해당 점수 reg에 counter 값을 더해줌. 쌓인개수 counter 값 내보냄.
 		- 틀리게 친 경우

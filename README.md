@@ -16,37 +16,37 @@
 
 ### module define
 1. 게임 진행
-	- turn
+	- turn  
 		keypad에서 넘기기 버튼이 눌렸는지 감지하여 state를 바꾼다. rand gen에게 enable을 주어 다음 값을 만들어내도록 하고, temp1과 temp2중 어디에 값을 저장할지 알려준다.
-	- rand gen
+	- rand gen  
 		5bit 무작위 random값을 만든다.
-	- temp1
+	- temp1  
 		5bit register. LED와 7seg의 값을 저장한다.
-	- temp2
+	- temp2  
 		5bit register. LED와 7seg의 값을 저장한다.
-	- LED
+	- LED  
 		temp1과 temp2의 값(앞 2bit)을 받아와 LED를 색상에 맞게 켠다. *range가 0~3이므로 %3연산
-	- 7seg 
+	- 7seg  
 		temp1과 temp2의 값(뒤 3bit)을 받아와 7seg를 값에 맞게 켠다. *range가 0~7이므로 %5연산
-	- 쌓인 개수 counter
+	- 쌓인 개수 counter  
 		turn에서 enable이 들어올때마다 1올리기. 점수컨트롤에게 값을 준다.
 
 2. 점수 판정
-	- 올바르게 쳤는지 판정
+	- 올바르게 쳤는지 판정  
 		temp1과 temp2의 값을 받아와 올바르게 쳤는지 판정하고 점수 control에게 값을 보내줌.
-	- 친사람 판정
+	- 친사람 판정  
 		개빠른 clock으로 간발의 차를 감지, 해당 턴에서 친 사람을 저장하고 있는다.
-	- 점수 reg1
+	- 점수 reg1  
 		player 1의 점수를 저장
-	- 점수 reg2
+	- 점수 reg2  
 		player 2의 점수를 저장
-	- 점수 controll
+	- 점수 controll  
 		- 올바르게 친 경우
 			쌓인개수 counter과 친 사람 판정값을 받아와, 해당 점수 reg에 counter 값을 더해줌. 쌓인개수 counter 값 내보냄.
 		- 틀리게 친 경우
 			친 사람 판정값을 받아와 해당 점수 reg에는 -1값을, 다른 reg에는 +1값을 더해줌.
 
-	- 승패판정
+	- 승패판정  
 		만약 reg의 값 차이가 50 이상이면 우승자를 보여주고 게임 종료.
 
 ### Project Schedule

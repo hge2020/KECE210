@@ -13,6 +13,9 @@
 4. RGB LED
 	- 카드에 새겨진 과일의 종류를 표현하기 위함
 
+### block diagram
+![그림1](https://user-images.githubusercontent.com/76932630/144621888-b9cbd9bb-99bd-47d0-ada6-7c6e2f605263.png)
+
 
 ### module define
 1. 게임 진행

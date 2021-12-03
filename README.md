@@ -20,37 +20,42 @@
 ### module define
 1. 게임 진행
 	- turn  
-		keypad에서 넘기기 버튼이 눌렸는지 감지하여 state를 바꾼다. rand gen에게 enable을 주어 다음 값을 만들어내도록 하고, temp1과 temp2중 어디에 값을 저장할지 알려준다.
+		keypad에서 넘기기 버튼이 눌렸는지 감지하여 state를 바꾼다. rand gen에게 enable을 주어 다음 값을 만들어내도록 하고, temp1과 temp2중 어디에 값을 저장할지 알려준다. /inner
 	- rand gen  
-		5bit 무작위 random값을 만든다.
+		5bit 무작위 random값을 만든다. /inner
 	- card_value1  
-		5bit register. LED와 7seg의 값을 저장한다.
+		5bit register. LED와 7seg의 값을 저장한다. *range가 0~3이므로 %3연산, *range가 0~7이므로 %5연산  /inner
 	- card_value2  
-		5bit register. LED와 7seg의 값을 저장한다.
-	- LED  
-		temp1과 temp2의 값(앞 2bit)을 받아와 LED를 색상에 맞게 켠다. *range가 0~3이므로 %3연산
-	- 7seg  
-		temp1과 temp2의 값(뒤 3bit)을 받아와 7seg를 값에 맞게 켠다. *range가 0~7이므로 %5연산
+		5bit register. LED와 7seg의 값을 저장한다. /inner
 	- 쌓인 개수 counter  
-		turn에서 enable이 들어올때마다 1올리기. 점수컨트롤에게 값을 준다.
+		turn에서 enable이 들어올때마다 1올리기. 점수컨트롤에게 값을 준다. /inner
+	- LED  
+		temp1과 temp2의 값(앞 2bit)을 받아와 LED를 색상에 맞게 켠다. /output
+	- display  
+		7seg값 생성함 /output
+	- 7seg  
+		temp1과 temp2의 값(뒤 3bit)을 받아와 7seg를 값에 맞게 켠다. /output
+	
 
 2. 점수 판정
 	- 올바르게 쳤는지 판정  
-		temp1과 temp2의 값을 받아와 올바르게 쳤는지 판정하고 점수 control에게 값을 보내줌.
+		temp1과 temp2의 값을 받아와 올바르게 쳤는지 판정하고 점수 control에게 값을 보내줌. /inner
 	- 친사람 판정  
-		개빠른 clock으로 간발의 차를 감지, 해당 턴에서 친 사람을 저장하고 있는다.
+		개빠른 clock으로 간발의 차를 감지, 해당 턴에서 친 사람을 저장하고 있는다. /inner
+	- score_reg_file  
+		reg1 reg2 묶기 /inner
 	- 점수 reg1  
-		player 1의 점수를 저장
+		player 1의 점수를 저장 /inner
 	- 점수 reg2  
-		player 2의 점수를 저장
+		player 2의 점수를 저장 /inner
 	- 점수 controll  
-		- 올바르게 친 경우
+		- 올바르게 친 경우 /inner
 			쌓인개수 counter과 친 사람 판정값을 받아와, 해당 점수 reg에 counter 값을 더해줌. 쌓인개수 counter 값 내보냄.
 		- 틀리게 친 경우
 			친 사람 판정값을 받아와 해당 점수 reg에는 -1값을, 다른 reg에는 +1값을 더해줌.
-
 	- 승패판정  
-		만약 reg의 값 차이가 50 이상이면 우승자를 보여주고 게임 종료.
+		만약 reg의 값 차이가 50 이상이면 우승자를 보여주고 게임 종료. /inner
+	- LCD /output
 
 ### Project Schedule
 1. 난수 발생기 및 사용 모듈 테스트 코드 설계, 회로 다이어그램 설계.
@@ -66,10 +71,7 @@
 	- 간단한 규칙만 적용
 		- 카드 넘기기(Random, 7-seg, RGB LED, number pad)
 		- 종 누르기(Compator, number pad)
-	
-	^^ 이거 구현하기
 
-	
 3. Servo motor 를 추가하여 턴의 느낌을 살림
 	- 저번주에 설계한 심플 할리갈리에 추가 규칙을 적용
 	- 서보 모터를 통해 턴을 확인 가능하게끔 하기.

@@ -38,13 +38,13 @@ module who_push (
 );
     //난몰라난몰라천번만번말해줘도몰라몰라 -> ㅋㅋㅋㅋㅋㅋㅋㅋ
 always @(keypad_in) begin
-    if(keypad_in == 4'b01xx) begin
+    if(keypad_in == 4'b0111) begin
         who1 <= 1'b1;
         if(who1*who2 == 0) begin
             savewho1 <= 1'b1;
         end        
     end
-    if(keypad_in == 4'b10xx) begin
+    if(keypad_in == 4'b1001) begin
         who2 <= 1'b1;
         if(who1*who2 == 0) begin
             savewho2 <= 1'b1;

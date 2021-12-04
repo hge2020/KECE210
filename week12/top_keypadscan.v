@@ -1,4 +1,4 @@
-module top_keypadscan(
+module top_keypad(
     input clk, rst,
     input [12-1:0] keypad_in,
     output [7-1:0] seg_display,

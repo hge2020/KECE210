@@ -28,34 +28,6 @@ assign {led_1_r, led_1_g, led_1_b, led_2_r, led_2_g, led_2_b} = out;
 endmodule
 
 
-module display (
-    input clk, rst,
-    input [3-1:0] c_value,
-    output reg [7-1:0] seg
-);
-    reg [7-1:0] temp;
-
-always @(posedge clk) begin
-    if(~rst) begin
-        seg <= 7'b0;
-        temp <= 7'b0;
-    end
-end
-
-always @(posedge clk) begin
-    case(c_value)
-        3'b000: temp <= 7'b0110000; //1
-        3'b001: temp <= 7'b1101101; //2
-        3'b010: temp <= 7'b1111001; //3
-        3'b011: temp <= 7'b0110011; //4
-        3'b100: temp <= 7'b1011011; //5
-        default: temp <= 7'b0110000; //0
-    endcase
-    seg <= temp;
-end
-
-endmodule
-
 module seven_segment (
     input clk, rst,
     input [7-1:0] seg1, seg2,
@@ -86,6 +58,36 @@ always @(posedge clk) begin
         end
         endcase
     end
+end
+
+endmodule
+
+
+
+module display (
+    input clk, rst,
+    input [3-1:0] c_value,
+    output reg [7-1:0] seg
+);
+    reg [7-1:0] temp;
+
+always @(posedge clk) begin
+    if(~rst) begin
+        seg <= 7'b0;
+        temp <= 7'b0;
+    end
+end
+
+always @(posedge clk) begin
+    case(c_value)
+        3'b000: temp <= 7'b0110000; //1
+        3'b001: temp <= 7'b1101101; //2
+        3'b010: temp <= 7'b1111001; //3
+        3'b011: temp <= 7'b0110011; //4
+        3'b100: temp <= 7'b1011011; //5
+        default: temp <= 7'b0110000; //0
+    endcase
+    seg <= temp;
 end
 
 endmodule

@@ -33,10 +33,26 @@ endmodule
 module who_push (
     input clk, rst,
     input [4-1:0] keypad_in,
-    output who
+    wire who1, who2;              //who1 [player1], who2 [player2]
+    output savewho1, savewho2;
 );
-    //난몰라난몰라천번만번말해줘도몰라몰라
+    //난몰라난몰라천번만번말해줘도몰라몰라 -> ㅋㅋㅋㅋㅋㅋㅋㅋ
+always @(keypad_in) begin
+    if(keypad_in == 4'b01xx) begin
+        who1 <= 1'b1;
+        if(who1*who2 == 0) begin
+            savewho1 <= 1'b1;
+        end        
+    end
+    if(keypad_in == 4'b10xx) begin
+        who2 <= 1'b1;
+        if(who1*who2 == 0) begin
+            savewho2 <= 1'b1;
+        end
+    end
+end
 
+// 그리고 친 사람이 reg_score에서 값을 받아 오면 who_push는 reset
 endmodule
 
 

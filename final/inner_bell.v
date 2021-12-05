@@ -30,46 +30,47 @@ endmodule
 
 
 
-module who_push (
-    input clk, rst,
-    input [4-1:0] keypad_in,
-    output savewho1, savewho2;
-);
-    reg who1, who2;  //who1 [player1], who2 [player2]
+module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 신호가 두개일필요 없을거같은디
+        input clk, rst,
+        input [4-1:0] keypad_in,
+        output savewho1, savewho2;
+    );
+        reg who1, who2;  //who1 [player1], who2 [player2]
 
-always @(posedge clk or keypad_in) begin
-    if (!rst) begin
-        savewho1 <= 1'b0;
-        savewho2 <= 1'b0;
-    end
-    else begin
-        if(keypad_in == 4'b0111) begin
-            who1 <= 1'b1;
-            if(who1*who2 == 0) savewho1 <= 1'b1;
-            else savewho1 <= 1'b0;
-        end
-        else if(keypad_in == 4'b1001) begin
-            who2 <= 1'b1;
-            if(who1*who2 == 0) savewho2 <= 1'b1;
-            else savewho2 <= 1'b0;
+    always @(posedge clk or keypad_in) begin
+        if (!rst) begin
+            savewho1 <= 1'b0;
+            savewho2 <= 1'b0;
         end
         else begin
-            who1 <= 1'b1;
-            who2 <= 1'b1;
+            if(keypad_in == 4'b0111) begin
+                who1 <= 1'b1;
+                if(who1*who2 == 0) savewho1 <= 1'b1;
+                else savewho1 <= 1'b0;
+            end
+            else if(keypad_in == 4'b1001) begin
+                who2 <= 1'b1;
+                if(who1*who2 == 0) savewho2 <= 1'b1;
+                else savewho2 <= 1'b0;
+            end
+            else begin
+                who1 <= 1'b1;
+                who2 <= 1'b1;
+            end
         end
+        
     end
-    
-end
 
 // 그리고 친 사람이 reg_score에서 값을 받아 오면 who_push는 reset
 endmodule
 
 
 
-module score_control (
+module score_control ( //이쪽코드를바꿉시다
         input clk, rst,
         input [8-1:0] count,
-        input right, who,
+        input right,
+        input [2-1:0] who,
         output [8-1:0] scoreA, scoreB
     );
     always @(posedge clk) begin
@@ -77,7 +78,7 @@ module score_control (
             scoreA <= 8'b0; scoreB <= 8'b0;
         end
         else begin
-            if (who) begin //A가 눌렀다면
+            if (2'b01) begin //A가 눌렀다면
                 if (right) begin
                     scoreA <= count; scoreB <= 8'b0;
                 end
@@ -85,7 +86,7 @@ module score_control (
                     scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
                 end
             end
-            else (~who) begin //B가 눌렀다면
+            else (2'b10) begin //B가 눌렀다면
                 if (right) begin
                     scoreA <= 8'b0; scoreA <= count;
                 end

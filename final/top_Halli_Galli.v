@@ -48,7 +48,8 @@ score_control score_c (.clk(clk), .rst(rst), .count(nofcard), .right(right), .wh
 .scoreA(score_weight[16-1:8]), .scoreB(score_weight[8-1:0]));
 score_file score_r (.clk(clk), .rst(rst), .add_score(score_weight),
 .total_score(total_score));
-who_win winner(.clk(clk), .rst(rst), .scoreA(total_score[18-1:9]), .scoreB(total_score[9-1:0]), .LCD_sig(LCD_sig));
+who_win winner(.clk(clk), .rst(rst), .scoreA(total_score[18-1:9]), .scoreB(total_score[9-1:0]),
+.LCD_sig(LCD_sig));
 
 full_c_LED led(.clk(clk), .rst(rst), .c_value1(value_player1[5-1:3]), .c_value2(value_player2[5-1:3]),
 .led_1_r(led_1_r), .led_1_g(led_1_g), .led_1_b(led_1_b),

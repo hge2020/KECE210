@@ -14,7 +14,7 @@
 	- 카드에 새겨진 과일의 종류를 표현하기 위함
 
 ### block diagram
-![그림1](https://user-images.githubusercontent.com/76932630/144621888-b9cbd9bb-99bd-47d0-ada6-7c6e2f605263.png)
+![그림2](https://user-images.githubusercontent.com/76932630/144817595-4df977e0-d3ad-4925-955e-a0dc10253014.png)
 
 
 ### module define

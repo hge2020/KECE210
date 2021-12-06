@@ -44,7 +44,7 @@ module turn (
         endcase
     end
 
-endmodule
+endmodule //검증완료
 
 
 
@@ -129,7 +129,7 @@ module demux (
         input clk, rst,
         input whose,
         input [5-1:0] rnd,
-        output [5-1:0] card_value1, card_value2
+        output reg [5-1:0] card_value1, card_value2
     );
         
     always @(posedge clk) begin

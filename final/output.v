@@ -45,12 +45,12 @@ end
 
 always @(posedge clk) begin
     case(c_value)
-        3'b000: temp <= 7'b0110000; //1
-        3'b001: temp <= 7'b1101101; //2
-        3'b010: temp <= 7'b1111001; //3
-        3'b011: temp <= 7'b0110011; //4
-        3'b100: temp <= 7'b1011011; //5
-        default: temp <= 7'b0110000; //0
+        3'b001: temp <= 7'b0110000; //1
+        3'b010: temp <= 7'b1101101; //2
+        3'b011: temp <= 7'b1111001; //3
+        3'b100: temp <= 7'b0110011; //4
+        3'b101: temp <= 7'b1011011; //5
+        default: temp <= 7'b0000000; //void
     endcase
     seg <= temp;
 end
@@ -65,7 +65,7 @@ module seven_segment (
     output reg [7-1:0] data_out,
     output reg [8-1:0] data_pos
 );
-    reg [3-1:0] count = 3'b0;
+    reg [2-1:0] count = 2'b0;
 
 always @(posedge clk) begin
     if(~rst) begin
@@ -75,11 +75,11 @@ always @(posedge clk) begin
     else begin
         count <= count+1'b1;
         case(count)
-        3'b000: begin
+        2'b00: begin
             data_pos <= 0000_0001;
             data_out <= seg1;
         end
-        3'b111: begin
+        2'b01: begin
             data_pos <= 1000_0000;
             data_out <= seg2;
         end
@@ -96,52 +96,52 @@ endmodule
 
 
 module LCD (
-    input clk, rst,
-    input [2-1:0] LCD_sig,
-    output reg LCD_E,LCD_RS,LCD_RW,
-    output reg [8-1:0] LCD_DATA
-);
-    
-wire [4-1:0] w_lcd1, w_lcd2, w_lcd3, w_lcd4;
-wire LCD_E1, LCD_E2, LCD_E3, LCD_E4;
-wire LCD_RS1, LCD_RS2, LCD_RS3, LCD_RS4;
-wire LCD_RW1, LCD_RW2, LCD_RW3, LCD_RW4;
+        input clk, rst,
+        input [2-1:0] LCD_sig,
+        output reg LCD_E,LCD_RS,LCD_RW,
+        output reg [8-1:0] LCD_DATA
+    );
+        
+    wire [4-1:0] w_lcd1, w_lcd2, w_lcd3, w_lcd4;
+    wire LCD_E1, LCD_E2, LCD_E3, LCD_E4;
+    wire LCD_RS1, LCD_RS2, LCD_RS3, LCD_RS4;
+    wire LCD_RW1, LCD_RW2, LCD_RW3, LCD_RW4;
 
-LCD_A_win LCD1(resetn,clk,LCD_E1,LCD_RS1,LCD_RW1,w_lcd1);
-LCD_B_win LCD2(resetn,clk,LCD_E2,LCD_RS2,LCD_RW2,w_lcd2);
-LCD_off LCD3(resetn,clk,LCD_E3,LCD_RS3,LCD_RW3,w_lcd3);
+    LCD_A_win LCD1(resetn,clk,LCD_E1,LCD_RS1,LCD_RW1,w_lcd1);
+    LCD_B_win LCD2(resetn,clk,LCD_E2,LCD_RS2,LCD_RW2,w_lcd2);
+    LCD_off LCD3(resetn,clk,LCD_E3,LCD_RS3,LCD_RW3,w_lcd3);
 
-always @(posedge clk) begin
-    if (!rst) begin
-        LCD_E <= 1'b0;
-        LCD_RS <= 1'b0;
-        LCD_RW <= 1'b0;
-        LCD_DATA <= 8'b0;
+    always @(posedge clk) begin
+        if (!rst) begin
+            LCD_E <= 1'b0;
+            LCD_RS <= 1'b0;
+            LCD_RW <= 1'b0;
+            LCD_DATA <= 8'b0;
+        end
+        else begin
+            case (LCD_sig)
+            end
+            2'b01: begin
+                LCD_DATA = w_lcd1;
+                LCD_E=LCD_E1;
+                LCD_RS=LCD_RS1;
+                LCD_RW=LCD_RW1;
+            end
+            2'b10: begin
+                LCD_DATA = w_lcd2;
+                LCD_E=LCD_E2;
+                LCD_RS=LCD_RS2;
+                LCD_RW=LCD_RW2;
+            end
+            default begin
+                LCD_DATA = w_lcd3;
+                LCD_E=LCD_E3;
+                LCD_RS=LCD_RS3;
+                LCD_RW=LCD_RW3;
+            end
+            endcase
+        end
     end
-    else begin
-        case (LCD_sig)
-        end
-        2'b01: begin
-            LCD_DATA = w_lcd1;
-            LCD_E=LCD_E1;
-            LCD_RS=LCD_RS1;
-            LCD_RW=LCD_RW1;
-        end
-        2'b10: begin
-            LCD_DATA = w_lcd2;
-            LCD_E=LCD_E2;
-            LCD_RS=LCD_RS2;
-            LCD_RW=LCD_RW2;
-        end
-        default begin
-            LCD_DATA = w_lcd3;
-            LCD_E=LCD_E3;
-            LCD_RS=LCD_RS3;
-            LCD_RW=LCD_RW3;
-        end
-        endcase
-    end
-end
 endmodule
 
 

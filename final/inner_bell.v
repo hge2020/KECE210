@@ -42,7 +42,7 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
     );
         reg who1, who2;  //who1 [player1], who2 [player2]
 
-    always @(posedge clk or keypad_in) begin
+    always @(posedge clk || keypad_in) begin
         if (!rst) begin
             savewho1 <= 1'b0;
             savewho2 <= 1'b0;
@@ -76,14 +76,14 @@ module score_control ( //이쪽코드를바꿉시다
         input [8-1:0] count,
         input right,
         input [2-1:0] who,
-        output [8-1:0] scoreA, scoreB
+        output reg [8-1:0] scoreA, scoreB
     );
     always @(posedge clk) begin
         if (!rst) begin
             scoreA <= 8'b0; scoreB <= 8'b0;
         end
         else begin
-            if (who == 2'b01) begin //A가 눌렀다면
+            if ( who == 2'b01 ) begin //A가 눌렀다면
                 if (right) begin
                     scoreA <= count; scoreB <= 8'b0;
                 end
@@ -91,7 +91,7 @@ module score_control ( //이쪽코드를바꿉시다
                     scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
                 end
             end
-            else (who == 2'b10) begin //B가 눌렀다면
+            else if ( who == 2'b10 ) begin //B가 눌렀다면
                 if (right) begin
                     scoreA <= 8'b0; scoreA <= count;
                 end
@@ -108,7 +108,7 @@ endmodule
 
 module reg_score (
         input clk, rst,
-        input [8-1:0] add_score
+        input [8-1:0] add_score,
         output [9-1:0] total_score
     );
 
@@ -140,7 +140,7 @@ module score_file (
 );
 
 reg_score A(.clk(clk), .rst(rst), .add_score(add_score[8-1:0]), .total_score(total_score[9-1:0]));
-reg_score A(.clk(clk), .rst(rst), .add_score(add_score[16-1:8]), .total_score(total_score[18-1:9]));
+reg_score B(.clk(clk), .rst(rst), .add_score(add_score[16-1:8]), .total_score(total_score[18-1:9]));
 
 endmodule
 

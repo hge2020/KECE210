@@ -63,7 +63,7 @@ module counter (
         count = count +1'b1; //아웃풋에ezr해도됨...?
     end
 
-endmodule
+endmodule //검증완료
 
 
 

@@ -12,7 +12,8 @@ module is_right (
     end
 
     always @(keypad_in) begin
-        if (c1 == c2) begin
+        if ((keypad_in == 4'b0111) or (keypad_in == 4'b1001))begin
+            if (c1 == c2) begin
                 if ((n1 + n2) == 4'b0101) right <= 1'b1;
                 else right <= 1'b0;
             end
@@ -20,6 +21,10 @@ module is_right (
                 if ((n1 == 3'b101) or (n2 == 3'b101)) right <= 1'b1;
                 else right <= 1'b0;
             end
+        end
+        else begin
+            right <= 1'b0;
+        end
     end
 
 //if 둘의 색깔이 동일한가?

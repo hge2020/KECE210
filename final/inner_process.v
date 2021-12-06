@@ -126,20 +126,20 @@ endmodule
 
 
 module demux (
-    input clk, rst,
-    input whose,
-    input [5-1:0] rnd,
-    output [5-1:0] card_value1, card_value2
-);
-    
-always @(posedge clk) begin
-    if (!rst) begin
-        card_value1 <= 5'b0;
-        card_value2 <= 5'b0;
+        input clk, rst,
+        input whose,
+        input [5-1:0] rnd,
+        output [5-1:0] card_value1, card_value2
+    );
+        
+    always @(posedge clk) begin
+        if (!rst) begin
+            card_value1 <= 5'b0;
+            card_value2 <= 5'b0;
+        end
+        else begin
+            if (whose) card_value1 <= rnd;
+            else card_value2 <= rnd;
+        end
     end
-    else begin
-        if (whose) card_value1 <= rnd;
-        else card_value2 <= rnd;
-    end
-end
 endmodule

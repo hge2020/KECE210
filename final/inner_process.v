@@ -142,4 +142,4 @@ module demux (
             else card_value2 <= rnd;
         end
     end
-endmodule
+endmodule //검증완료

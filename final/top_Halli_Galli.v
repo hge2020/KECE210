@@ -12,7 +12,7 @@ module top_Halli_Galli (
     wire keypad_valid;
     wire random_enable;
     wire turn_whose;
-    wire nofcard;
+    wire [8-1:0] nofcard;
     wire [5-1:0] randn;
     wire [5-1:0] rand_player1, rand_player2;
     wire [5-1:0] value_player1, value_player2;

@@ -1,4 +1,4 @@
-module is_right (
+module is_right (               //검증 완료
         input clk, rst,
         input [4-1:0] keypad_in,
         input [2-1:0] c1, c2,

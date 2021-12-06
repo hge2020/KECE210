@@ -119,10 +119,10 @@ module card_value (
 
     always @(*) begin
         r_color = (rnd[4:3] %3) + 1'b1;
-        r_number = rnd[2:0] %5;
+        r_number = (rnd[2:0] %5) + 1'b1;
     end
 
-endmodule
+endmodule //검증완료
 
 
 module demux (

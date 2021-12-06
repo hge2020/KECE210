@@ -12,13 +12,13 @@ module is_right (               //검증 완료
     end
 
     always @(keypad_in) begin
-        if ((keypad_in == 4'b0111) or (keypad_in == 4'b1001))begin
+        if (keypad_in == 4'b0111 || keypad_in == 4'b1001)begin
             if (c1 == c2) begin
                 if ((n1 + n2) == 4'b0101) right <= 1'b1;
                 else right <= 1'b0;
             end
             else begin
-                if ((n1 == 3'b101) or (n2 == 3'b101)) right <= 1'b1;
+                if (n1 == 3'b101 || n2 == 3'b101) right <= 1'b1;
                 else right <= 1'b0;
             end
         end
@@ -36,7 +36,7 @@ endmodule
 
 
 module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 신호가 두개일필요 없을거같은디
-        input clk, rst, finish
+        input clk, rst, finish,
         input [4-1:0] keypad_in,
         output reg savewho1, savewho2
     );
@@ -56,12 +56,12 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
     always @(posedge clk or keypad_in) begin
         case(finite_state)
         no_one: begin
-            if (keypad_in == 4'0111, finish == 0) begin
+            if (keypad_in == 4'0111, finish == 1'b0) begin
                 finite_state <= p1_push;
                 savewho1 <= 1'b1;
                 savewho2 <= 1'b0;
             end
-            else if (keypad_in == 4'1001, finish == 0) begin
+            else if (keypad_in == 4'1001, finish == 1'b0) begin
                 finite_state <= p2_push;
                 savewho1 <= 1'b0;
                 savewho2 <= 1'b1;

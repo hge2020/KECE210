@@ -117,7 +117,6 @@ module card_value (
         end
     end
 
-
     always @(*) begin
         r_color = (rnd[4:3] %3) + 1'b1;
         r_number = rnd[2:0] %5;

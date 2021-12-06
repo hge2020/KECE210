@@ -89,7 +89,7 @@ module rand_gen (
         nxt_q[0] = q[2] ^ q[4];
     end
 
-endmodule
+endmodule //검증완료
 
 
 

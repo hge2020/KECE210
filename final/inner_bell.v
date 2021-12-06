@@ -35,7 +35,7 @@ endmodule
 
 
 
-module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 신호가 두개일필요 없을거같은디
+module who_push (
         input clk, rst, finish,
         input [4-1:0] keypad_in,
         output reg savewho1, savewho2
@@ -44,27 +44,44 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
     parameter p1_push = 2'b01 ;
     parameter p2_push = 2'b10 ;
 
-    reg finite_state;
+    reg [1:0] finite_state;
     //savewho1 [player1], savewho2 [player2]
 
     always @( posedge clk ) begin
-        if (!rst) begin
+        if (~rst) begin
             finite_state <= no_one;
+            savewho1 <= 1'b0;
+            savewho2 <= 1'b0;
         end
     end
 
     always @(posedge clk or keypad_in) begin
         case(finite_state)
         no_one: begin
-            if (keypad_in == 4'0111, finish == 1'b0) begin
-                finite_state <= p1_push;
-                savewho1 <= 1'b1;
-                savewho2 <= 1'b0;
+            if (keypad_in == 4'b0111) begin
+                if (finish == 1'b0) begin
+                    finite_state <= p1_push;
+                    savewho1 <= 1'b1;
+                    savewho2 <= 1'b0;
+                end
+                
+                else begin
+                    finite_state <= no_one;
+                    savewho1 <= 1'b0;
+                    savewho2 <= 1'b0;
+                end
             end
-            else if (keypad_in == 4'1001, finish == 1'b0) begin
-                finite_state <= p2_push;
-                savewho1 <= 1'b0;
-                savewho2 <= 1'b1;
+            else if (keypad_in == 4'b1001) begin
+                if (finish == 1'b0) begin
+                    finite_state <= p2_push;
+                    savewho1 <= 1'b0;
+                    savewho2 <= 1'b1;
+                end
+                else begin
+                   finite_state <= no_one;
+                    savewho1 <= 1'b0;
+                    savewho2 <= 1'b0; 
+                end
             end
             else begin
                 finite_state <= no_one;
@@ -74,6 +91,11 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
         end
         p1_push: begin
             if (finish == !0) begin
+                finite_state <= no_one;
+                savewho1 <= 1'b0;
+                savewho2 <= 1'b0;
+            end
+            else if (~rst) begin
                 finite_state <= no_one;
                 savewho1 <= 1'b0;
                 savewho2 <= 1'b0;
@@ -90,6 +112,11 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
                 savewho1 <= 1'b0;
                 savewho2 <= 1'b0;
             end
+            else if (~rst) begin
+                finite_state <= no_one;
+                savewho1 <= 1'b0;
+                savewho2 <= 1'b0;
+            end
             else begin
                 finite_state <= p2_push;
                 savewho1 <= 1'b0;
@@ -100,7 +127,8 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
         endcase
     end
 
-// 그리고 친 사람이 reg_score에서 값을 받아 오면 who_push는 reset
+//reset까지 state에 구현해야 rst이 동작 하더라고....
+//코드는 드릅게 길지만 알맹이는 땅콩정도..?
 endmodule
 
 

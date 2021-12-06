@@ -23,7 +23,7 @@ module top_Halli_Galli (
     wire [2-1:0] LCD_sig;
     wire [14-1:0] seg;
 
-keypad_in keypad(.clk(clk), .rst(rst), .keypad_in({b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12}), 
+keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in({b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12}), 
 .scan_out(key_scan), .valid(keypad_valid));
 
 turn whose_turn (.clk(clk), .rst(rst), .keypad_in(key_scan),

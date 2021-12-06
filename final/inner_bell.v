@@ -12,13 +12,13 @@ module is_right (
     end
 
     always @(keypad_in) begin
-        if ((keypad_in == 4'b0111) or (keypad_in == 4'b1001))begin
+        if ((keypad_in == 4'b0111) || (keypad_in == 4'b1001))begin
             if (c1 == c2) begin
                 if ((n1 + n2) == 4'b0101) right <= 1'b1;
                 else right <= 1'b0;
             end
             else begin
-                if ((n1 == 3'b101) or (n2 == 3'b101)) right <= 1'b1;
+                if ((n1 == 3'b101) || (n2 == 3'b101)) right <= 1'b1;
                 else right <= 1'b0;
             end
         end
@@ -38,7 +38,7 @@ endmodule
 module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 신호가 두개일필요 없을거같은디
         input clk, rst,
         input [4-1:0] keypad_in,
-        output savewho1, savewho2;
+        output reg savewho1, savewho2
     );
         reg who1, who2;  //who1 [player1], who2 [player2]
 
@@ -51,12 +51,12 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
             if(keypad_in == 4'b0111) begin
                 who1 <= 1'b1;
                 if(who1*who2 == 0) savewho1 <= 1'b1;
-                else savewho1 <= 1'b0;
+                else who1 <= 1'b1;
             end
             else if(keypad_in == 4'b1001) begin
                 who2 <= 1'b1;
                 if(who1*who2 == 0) savewho2 <= 1'b1;
-                else savewho2 <= 1'b0;
+                else who2 <= 1'b1;
             end
             else begin
                 who1 <= 1'b1;
@@ -83,7 +83,7 @@ module score_control ( //이쪽코드를바꿉시다
             scoreA <= 8'b0; scoreB <= 8'b0;
         end
         else begin
-            if (2'b01) begin //A가 눌렀다면
+            if (who == 2'b01) begin //A가 눌렀다면
                 if (right) begin
                     scoreA <= count; scoreB <= 8'b0;
                 end
@@ -91,7 +91,7 @@ module score_control ( //이쪽코드를바꿉시다
                     scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
                 end
             end
-            else (2'b10) begin //B가 눌렀다면
+            else (who == 2'b10) begin //B가 눌렀다면
                 if (right) begin
                     scoreA <= 8'b0; scoreA <= count;
                 end

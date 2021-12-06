@@ -16,12 +16,22 @@ module tb_who_push;
 
     initial begin
         #5 rst <= 1'b1;
+        #5 keypad_in <= 4'b1001;
         #5 keypad_in <= 4'b0111;
         #5 keypad_in <= 4'b1001;
+        #5 keypad_in <= 4'bxxxx;
         #5 rst <= 1'b0;
         #5 rst <= 1'b1;
         #5 keypad_in <= 4'b1001;
         #5 keypad_in <= 4'b0111;
+        #5 keypad_in <= 4'bxxxx;
         #5 rst <= 1'b0;
+        #5 rst <= 1'b1;
+        #5 keypad_in <= 4'b0111;
+        #5 keypad_in <= 4'b1001;
+        #5 keypad_in <= 4'bxxxx;
+        #5 keypad_in <= 4'b0111;
+        #5 keypad_in <= 4'b1001;
+        #5 keypad_in <= 4'bxxxx;
     end
 endmodule

@@ -42,28 +42,32 @@ module who_push ( //이거 savewho에 0/1넣는걸론 해결못하나? 굳이 �
     );
         reg who1, who2;  //who1 [player1], who2 [player2]
 
-    always @(posedge clk || keypad_in) begin
+    always @( posedge clk ) begin
         if (!rst) begin
             savewho1 <= 1'b0;
             savewho2 <= 1'b0;
+            who1 <= 1'b0;
+            who2 <= 1'b0;
+        end
+    end
+
+    always @(posedge clk or keypad_in) begin
+        if(keypad_in == 4'b0111) begin
+            who1 <= 1'b1;
+            who2 <= 1'b0;
+            if(who1*who2 == 0) savewho1 <= 1'b1;
+            else savewho2 <= 1'b0;
+        end
+        else if(keypad_in == 4'b1001) begin
+            who1 <= 1'b0;
+            who2 <= 1'b1;
+            if(who1*who2 == 0) savewho2 <= 1'b1;
+            else savewho1 <= 1'b0;
         end
         else begin
-            if(keypad_in == 4'b0111) begin
-                who1 <= 1'b1;
-                if(who1*who2 == 0) savewho1 <= 1'b1;
-                else who1 <= 1'b1;
-            end
-            else if(keypad_in == 4'b1001) begin
-                who2 <= 1'b1;
-                if(who1*who2 == 0) savewho2 <= 1'b1;
-                else who2 <= 1'b1;
-            end
-            else begin
-                who1 <= 1'b1;
-                who2 <= 1'b1;
-            end
+            who1 <= 1'b0;
+            who2 <= 1'b0;
         end
-        
     end
 
 // 그리고 친 사람이 reg_score에서 값을 받아 오면 who_push는 reset

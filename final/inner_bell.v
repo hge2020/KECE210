@@ -199,7 +199,7 @@ module reg_score (
         feedback = q_total_score + add_score;
     end
 
-endmodule
+endmodule //이거좀..... 계속 덧셈하고 막 값 초기화되고 난리남ㅋㅋ
 
 
 

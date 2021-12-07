@@ -138,7 +138,8 @@ module score_control (
         input [8-1:0] count,
         input right,
         input [2-1:0] who,
-        output reg [8-1:0] scoreA, scoreB, finish
+        output reg [8-1:0] scoreA, scoreB,
+        output reg finish
     );
     always @(posedge clk) begin
         if (!rst) begin
@@ -171,7 +172,7 @@ module score_control (
         end
     end
 
-endmodule
+endmodule //검증완료. finish는 who값에 의해 제어됩니다!<<둘이 섞여서 잘 돌아가는지 확인할것.
 
 
 

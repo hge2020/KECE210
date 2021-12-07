@@ -50,17 +50,20 @@ endmodule //검증완료
 
 module counter (
         input clk, rst,
-        input en,
+        input en, finish,
         output reg [8-1:0] count
     );
     always @(posedge clk) begin
         if (!rst) begin
             count <= 8'b0;
         end
+        else if (finish) begin
+            count <= 8'b0;
+        end
     end
 
-    always @(posedge en) begin //이거밖에 없어도 클락에서 안뜯어져서움직이나..?
-        count = count +1'b1; //아웃풋에ezr해도됨...?
+    always @(posedge en) begin
+        count = count +1'b1;
     end
 
 endmodule //검증완료

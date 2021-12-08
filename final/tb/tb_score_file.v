@@ -26,7 +26,7 @@ end
 initial begin
     #20 right <= 0;
     #20 who <= 01;
-    #20 who <= 10;
+    //#20 who <= 10;
     #20 who <= 00;
     #20 who <= 11;
     #40 right <= 1;

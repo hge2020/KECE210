@@ -78,7 +78,7 @@ module who_push (     //검증완료
                     savewho2 <= 1'b1;
                 end
                 else begin
-                   finite_state <= no_one;
+                    finite_state <= no_one;
                     savewho1 <= 1'b0;
                     savewho2 <= 1'b0; 
                 end
@@ -133,16 +133,18 @@ endmodule
 
 
 
-module score_control ( //이쪽코드를바꿉시다
+module score_control ( 
         input clk, rst,
         input [8-1:0] count,
         input right,
         input [2-1:0] who,
-        output reg [8-1:0] scoreA, scoreB
+        output reg [8-1:0] scoreA, scoreB,
+        output reg finish
     );
     always @(posedge clk) begin
         if (!rst) begin
             scoreA <= 8'b0; scoreB <= 8'b0;
+            finish <= 1'b0;
         end
         else begin
             if ( who == 2'b01 ) begin //A가 눌렀다면
@@ -152,43 +154,55 @@ module score_control ( //이쪽코드를바꿉시다
                 else begin
                     scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
                 end
+                finish <= 1'b1;
             end
             else if ( who == 2'b10 ) begin //B가 눌렀다면
                 if (right) begin
-                    scoreA <= 8'b0; scoreA <= count;
+                    scoreA <= 8'b0; scoreB <= count;
                 end
                 else begin
                     scoreA <= 8'b0000_0001; scoreB <= 8'b1111_1111; //-1 2'scomplement
                 end
+                finish <= 1'b1;
+            end
+            else begin
+                scoreA <= 8'b0; scoreB <= 8'b0;
+                finish <= 1'b0;
             end
         end
     end
 
-endmodule
+endmodule //검증완료. finish는 who값에 의해 제어됩니다!<<둘이 섞여서 잘 돌아가는지 확인할것.
 
 
 
 module reg_score (
         input clk, rst,
         input [8-1:0] add_score,
-        output [9-1:0] total_score
+        output reg [9-1:0] total_score
     );
 
         reg [9-1:0] q_total_score, feedback;
 
-    assign total_score = q_total_score;
+    //assign total_score = q_total_score;
 
     always @(posedge clk) begin
         if (!rst) begin
+            total_score <= 9'b0;
             q_total_score <= 9'b0;
+            feedback <= 9'b0;
         end
         else begin
             q_total_score <= feedback;
         end
     end
 
-    always @(*) begin
-        feedback = q_total_score + add_score;
+    always @ (posedge clk) begin
+        feedback <= q_total_score + add_score;
+    end
+
+    always @ (add_score) begin
+        total_score <= q_total_score + add_score;
     end
 
 endmodule

@@ -35,7 +35,7 @@ endmodule
 
 
 
-module who_push (
+module who_push (   // 검증 완료
         input clk, rst, finish,
         input [4-1:0] keypad_in,
         output reg savewho1, savewho2

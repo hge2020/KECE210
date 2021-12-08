@@ -35,7 +35,7 @@ endmodule
 
 
 
-module who_push (   // 검증 완료
+module who_push (     //검증완료
         input clk, rst, finish,
         input [4-1:0] keypad_in,
         output reg savewho1, savewho2
@@ -78,7 +78,7 @@ module who_push (   // 검증 완료
                     savewho2 <= 1'b1;
                 end
                 else begin
-                    finite_state <= no_one;
+                   finite_state <= no_one;
                     savewho1 <= 1'b0;
                     savewho2 <= 1'b0; 
                 end
@@ -133,18 +133,16 @@ endmodule
 
 
 
-module score_control (
+module score_control ( //이쪽코드를바꿉시다
         input clk, rst,
         input [8-1:0] count,
         input right,
         input [2-1:0] who,
-        output reg [8-1:0] scoreA, scoreB,
-        output reg finish
+        output reg [8-1:0] scoreA, scoreB
     );
     always @(posedge clk) begin
         if (!rst) begin
             scoreA <= 8'b0; scoreB <= 8'b0;
-            finish <= 1'b0;
         end
         else begin
             if ( who == 2'b01 ) begin //A가 눌렀다면
@@ -154,25 +152,19 @@ module score_control (
                 else begin
                     scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
                 end
-                finish <= 1'b1;
             end
             else if ( who == 2'b10 ) begin //B가 눌렀다면
                 if (right) begin
-                    scoreA <= 8'b0; scoreB <= count;
+                    scoreA <= 8'b0; scoreA <= count;
                 end
                 else begin
                     scoreA <= 8'b0000_0001; scoreB <= 8'b1111_1111; //-1 2'scomplement
                 end
-                finish <= 1'b1;
-            end
-            else begin
-                scoreA <= 8'b0; scoreB <= 8'b0;
-                finish <= 1'b0;
             end
         end
     end
 
-endmodule //검증완료. finish는 who값에 의해 제어됩니다!<<둘이 섞여서 잘 돌아가는지 확인할것.
+endmodule
 
 
 
@@ -199,7 +191,7 @@ module reg_score (
         feedback = q_total_score + add_score;
     end
 
-endmodule //이거좀..... 계속 덧셈하고 막 값 초기화되고 난리남ㅋㅋ
+endmodule
 
 
 

@@ -2,9 +2,9 @@ module stepmotor(
     input rst, clk,
     output reg [4-1:0] stepperpins
 );
-    parameter stepper_divider = 50; //every 1us
+    parameter stepper_divider = 50000; //every 1ms
     reg [32-1:0] count;
-    reg [3-1:0] step
+    reg [3-1:0] step;
 
     always @ (posedge clk) begin
         if(count >= stepper_divider + 1) begin
@@ -18,13 +18,13 @@ module stepmotor(
 
     always @ (step) begin
         case(step)
-        0: stepperpins <= 4'b1000;
-        1: stepperpins <= 4'b1100;
-        2: stepperpins <= 4'b0100;
-        3: stepperpins <= 4'b0110;
-        4: stepperpins <= 4'b0010;
-        5: stepperpins <= 4'b0011;
-        6: stepperpins <= 4'b0001;
+        0: stepperpins <= 4'b1100;
+        1: stepperpins <= 4'b0110;
+        2: stepperpins <= 4'b0011;
+        3: stepperpins <= 4'b1001;
+        4: stepperpins <= 4'b1100;
+        5: stepperpins <= 4'b0110;
+        6: stepperpins <= 4'b0011;
         7: stepperpins <= 4'b1001;
         default: stepperpins <= 4'b1000;
         endcase

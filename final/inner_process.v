@@ -101,31 +101,66 @@ endmodule //검증완료
 module card_value (
         input clk, rst,
         input [5-1:0] rnd,
-        output [2-1:0] color,
-        output [3-1:0] number
+        output reg [2-1:0] color,
+        output reg [3-1:0] number
     );
-        reg [2-1:0] r_color, q_color;
-        reg [3-1:0] r_number, q_number;
+        // reg [2-1:0] r_color, q_color;
+        // reg [3-1:0] r_number, q_number;
 
-    assign color = r_color;
-    assign number = r_number;
+    // assign color = r_color;
+    // assign number = r_number;
 
     always @(posedge clk) begin
         if (!rst) begin
-            q_color <= 2'b0;
-            q_number <= 3'b0;
+            color <= 2'b0;
+            number <= 3'b0;
         end
-        else
-        begin
-            q_color <= r_color;
-            q_number <= r_number;
+        else begin
+            case (rnd[4:3])
+            2'b00: color <= 2'b01;
+            2'b01: color <= 2'b10;
+            2'b10: color <= 2'b11;
+            2'b11: color <= 2'b01;
+            endcase
+            case (rnd[2:0])
+            3'b000: color <= 3'b001;
+            3'b001: color <= 3'b010;
+            3'b010: color <= 3'b011;
+            3'b011: color <= 3'b100;
+            3'b100: color <= 3'b101;
+
+            3'b101: color <= 3'b001;
+            3'b110: color <= 3'b010;
+            3'b111: color <= 3'b011;
+            endcase
         end
     end
 
-    always @(*) begin // ???
-        r_color = (rnd[4:3] %3) + 1'b1;
-        r_number = (rnd[2:0] %5) + 1'b1;
-    end
+    // always @(*) begin // ???
+    //     r_color = (rnd[4:3] %3) + 1'b1;
+    //     r_number = (rnd[2:0] %5) + 1'b1;
+    // end
+
+
+    // always @(*) begin
+    //     case (rnd[4:3])
+    //     2'b00: r_color <= 2'b01;
+    //     2'b01: r_color <= 2'b10;
+    //     2'b10: r_color <= 2'b11;
+    //     2'b11: r_color <= 2'b01;
+    //     endcase
+    //     case (rnd[2:0])
+    //     3'b000: r_color <= 3'b001;
+    //     3'b001: r_color <= 3'b010;
+    //     3'b010: r_color <= 3'b011;
+    //     3'b011: r_color <= 3'b100;
+    //     3'b100: r_color <= 3'b101;
+
+    //     3'b101: r_color <= 3'b001;
+    //     3'b110: r_color <= 3'b010;
+    //     3'b111: r_color <= 3'b011;
+    //     endcase
+    // end
 
 endmodule //검증완료
 

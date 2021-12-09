@@ -11,6 +11,8 @@ module turn (
     always @(posedge clk) begin
         if (!rst) begin
             finite_state <= turn1;
+            en <= 1'b0;
+            whose <= 1'b0;
         end
         else begin
             case(finite_state)
@@ -44,54 +46,25 @@ module turn (
     end
 endmodule
 
-    /*always @(posedge clk) begin
-        case(finite_state)
-        turn1: begin
-            if (keypad_in == 4'b0011) begin
-                finite_state <= turn2;
-                en <= 1'b1;
-                whose <= 1'b1;
-            end
-            else begin
-                finite_state <= turn1;
-                en <= 1'b0;
-                whose <= 1'b0;
-            end
-        end
-        turn2: begin
-            if (keypad_in == 4'b0001) begin
-                finite_state <= turn1;
-                en <= 1'b1;
-                whose <= 1'b0;
-            end
-            else begin
-                finite_state <= turn2;
-                en <= 1'b0;
-                whose <= 1'b1;
-            end
-        end
-        default: finite_state <= turn1;
-        endcase
-    end
-
-endmodule*/ //검증완료
-
 
 module counter (
         input clk, rst,
         input en, finish,
-        output [8-1:0] count_out
+        output reg [8-1:0] count
     );
 
     always @(posedge clk) begin
         if (!rst) begin
             count <= 8'b0;
         end
-        else if (finish) begin
-            count <= 8'b0;
-        end
         else begin
-            count <= count + en;
+            //count <= count + {7'b0, en};
+            if (finish) begin
+                count <= 8'b0;
+            end
+            else begin 
+                count <= count + {7'b0, en};
+            end
         end
     end
 

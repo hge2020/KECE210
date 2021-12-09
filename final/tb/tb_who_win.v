@@ -10,8 +10,7 @@ module tb_who_win;
     initial begin
         clk <= 1'b1;
         rst <= 1'b0;
-        LCD_sig <= 2'b00;
-        forever #5 clk <= ~clk;
+        forever #1 clk <= ~clk;
     end
 
     initial begin

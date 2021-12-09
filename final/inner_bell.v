@@ -221,7 +221,7 @@ reg_score B(.clk(clk), .rst(rst), .add_score(add_score[16-1:8]), .total_score(to
 endmodule
 
 
-module who_win (
+module who_win ( // 검증완료
         input clk, rst,
         input [9-1:0] scoreA, scoreB,
         output reg [2-1:0] LCD_sig

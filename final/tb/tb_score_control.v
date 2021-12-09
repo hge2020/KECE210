@@ -11,7 +11,7 @@ score_control tbscore_control(.clk(clk), .rst(rst), .count(count), .right(right)
 initial begin
     clk <= 1'b1;
     rst <= 1'b0;
-    count <= 300;
+    count <= 30;
     forever #5 clk <= ~clk;
 end
 

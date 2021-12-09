@@ -11,14 +11,16 @@ always @(posedge clk) begin
         out <= 6'b0;
     end
     else begin
-        case({c_value1[1], c_value1[0], c_value2[1], c_value2[0]})
-        4'b01_00: out <= 100_000;
-        4'b10_00: out <= 010_000;
-        4'b11_00: out <= 001_000;
+        case({c_value1[1], c_value1[0]})
+        2'b01: out[6-1:3] <= 100;
+        2'b10: out[6-1:3] <= 010;
+        2'b11: out[6-1:3] <= 001;
+        endcase
 
-        4'b00_01: out <= 000_100;
-        4'b00_10: out <= 000_010;
-        4'b00_11: out <= 000_001;
+        case({c_value2[1], c_value2[0]})
+        2'b01: out[3-1:0] <= 100;
+        2'b10: out[3-1:0] <= 010;
+        2'b11: out[3-1:0] <= 001;
         endcase
     end
 end
@@ -102,14 +104,14 @@ module LCD (
         output reg [8-1:0] LCD_DATA
     );
         
-    wire [4-1:0] w_lcd1, w_lcd2, w_lcd3, w_lcd4;
+    wire [8-1:0] w_lcd1, w_lcd2, w_lcd3, w_lcd4;
     wire LCD_E1, LCD_E2, LCD_E3, LCD_E4;
     wire LCD_RS1, LCD_RS2, LCD_RS3, LCD_RS4;
     wire LCD_RW1, LCD_RW2, LCD_RW3, LCD_RW4;
 
-    LCD_A_win LCD1(rst,clk,LCD_E1,LCD_RS1,LCD_RW1,w_lcd1);
-    LCD_B_win LCD2(rst,clk,LCD_E2,LCD_RS2,LCD_RW2,w_lcd2);
-    LCD_off LCD3(rst,clk,LCD_E3,LCD_RS3,LCD_RW3,w_lcd3);
+    LCD1 LCD_A_win(rst,clk,LCD_E1,LCD_RS1,LCD_RW1,w_lcd1);
+    LCD2 LCD_B_win(rst,clk,LCD_E2,LCD_RS2,LCD_RW2,w_lcd2);
+    LCD3 LCD_off(rst,clk,LCD_E3,LCD_RS3,LCD_RW3,w_lcd3);
 
     always @(posedge clk) begin
         if (!rst) begin

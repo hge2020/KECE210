@@ -77,21 +77,45 @@ module rand_gen (
         input en,
         output wire [5-1:0] rnd
     );
-        reg [5-1:0] q, nxt_q;
-        reg feedback;
+        reg [5-1:0] rand_q, nxt_rand_q;
+        reg [5-1:0] buffer_q, nxt_buffer_q;
+        reg en_update;
 
-    assign rnd = q;
+    // always @(posedge clk) begin
+        
+    //     if (!rst) rand_q <= 5'b11100;
+    //     else begin
+    //         if (en_update) begin
+    //             rand_q <= nxt_rand_q;
+    //         end
+    //         else begin
+    //             rand_q <= rand_q;
+    //         end
+    //     end
+    //     if (en) en_update <= 1'b1;
+    //     else en_update <= 1'b0;
+    // end
 
-    always @(posedge clk, negedge rst) begin
-        if (!rst) q <= 5'b11100;
+    always @(posedge clk) begin
+        
+        if (!rst) begin
+            rand_q <= 5'b11100;
+            buffer_q <= 5'd0;
+        end
         else begin
-            q <= nxt_q;
+            rand_q <= nxt_rand_q;
+            buffer_q <= nxt_buffer_q;
         end
     end
 
+    assign rnd = (en) ? nxt_rand_q : buffer_q;
+
     always @(*) begin
-        nxt_q = q << 1;
-        nxt_q[0] = q[2] ^ q[4];
+        nxt_rand_q = rand_q << 1;
+        nxt_rand_q[0] = rand_q[2] ^ rand_q[4];
+
+        if (en) nxt_buffer_q = nxt_rand_q;
+        else nxt_buffer_q = buffer_q;
     end
 
 endmodule //검증완료
@@ -172,14 +196,19 @@ module demux (
         output reg [5-1:0] card_value1, card_value2
     );
         
-    always @(posedge clk) begin
+    always @(*) 
+    begin
         if (!rst) begin
-            card_value1 <= 5'b0;
-            card_value2 <= 5'b0;
+            card_value1 = 5'b0;
+            card_value2 = 5'b0;
         end
         else begin
-            if (whose) card_value1 <= rnd;
-            else card_value2 <= rnd;
-        end
+            if (whose) begin
+                card_value1 = rnd;
+            end
+            else begin
+                card_value2 = rnd;
+            end
+        end    
     end
 endmodule //검증완료

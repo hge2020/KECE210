@@ -21,11 +21,10 @@ always @(posedge clk or negedge rst) begin
     else begin
         if (keypad_in && ~temp) begin
             case(keypad_in)
-            12'b0000_0000_0001: scan_out<= 4'b0000; //0
-            12'b0000_0000_0010: scan_out<= 4'b0001; //1
-            12'b0000_0000_1000: scan_out<= 4'b0011; //3
-            12'b0000_1000_0000: scan_out<= 4'b0111; //7
-            12'b0010_0000_0000: scan_out<= 4'b1001; //9
+            12'b0000_0000_0001: scan_out<= 4'b0001; //1
+            12'b0000_0000_0100: scan_out<= 4'b0011; //3
+            12'b0000_0100_0000: scan_out<= 4'b0111; //7
+            12'b0001_0000_0000: scan_out<= 4'b1001; //9
             default: scan_out<= 4'b0000; //0
             endcase
             valid <= 1'b1;

@@ -84,29 +84,48 @@ module counter (
         output [8-1:0] count_out
     );
 
-    reg [8-1:0] count;
+    reg [8-1:0] count_q;
+    reg en_update;
 
-    initial begin
-        count <= 8'b0;
+    // initial begin
+    //     count_q <= 8'b0; // ???
+    // end
+
+    always @(posedge clk) begin
+        if (!rst) begin
+            count_q <= 8'b0;
+        end
+        else
+        begin
+            if (finish == 1'b1)
+            begin
+                count_q <= 8'b0;
+            end
+            else if (en_update)
+            begin
+                count_q <= count_q + 8'b1;
+            end
+            else begin
+                count_q <= count_q;
+            end
+        end
     end
 
-    always @(posedge clk or posedge en) begin
-        if (!rst) begin
-            count <= 8'b0;
-        end
-        if (finish == 1'b1) begin
-            count <= 8'b0;
-        end
-        if (en) begin
-            count <= count + 8'b0000_0001;
-        end 
+    always @(posedge en)
+    begin
+        en_update = 1'b1;
+    end
+
+    always @(negedge en)
+    begin
+            en_update = 1'b0;
     end
 
     // always @(posedge en) begin
-    //     count <= count + 8'b0000_0001;
+    //     count_q <= count_q + 8'b0000_0001;
     // end
 
-    assign count_out = count;
+    assign count_out = count_q;
 
 endmodule
 
@@ -162,7 +181,7 @@ module card_value (
         end
     end
 
-    always @(*) begin
+    always @(*) begin // ???
         r_color = (rnd[4:3] %3) + 1'b1;
         r_number = (rnd[2:0] %5) + 1'b1;
     end

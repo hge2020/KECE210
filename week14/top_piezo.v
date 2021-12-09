@@ -1,4 +1,4 @@
-module top_piezo(
+module top_piezo_tone(
     input clk, rst,
     input [12-1:0] keypad_in,
     output sound_out

@@ -77,54 +77,23 @@ endmodule
 endmodule*/ //검증완료
 
 
-
 module counter (
         input clk, rst,
         input en, finish,
         output [8-1:0] count_out
     );
 
-    reg [8-1:0] count_q;
-    reg en_update;
-
-    // initial begin
-    //     count_q <= 8'b0; // ???
-    // end
-
     always @(posedge clk) begin
         if (!rst) begin
-            count_q <= 8'b0;
+            count <= 8'b0;
         end
-        else
-        begin
-            if (finish == 1'b1)
-            begin
-                count_q <= 8'b0;
-            end
-            else if (en_update)
-            begin
-                count_q <= count_q + 8'b1;
-            end
-            else begin
-                count_q <= count_q;
-            end
+        else if (finish) begin
+            count <= 8'b0;
+        end
+        else begin
+            count <= count + en;
         end
     end
-
-    always @(posedge en) begin
-        en_update = 1'b1;
-    end
-
-    always @(negedge en)
-    begin
-            en_update = 1'b0;
-    end
-
-    // always @(posedge en) begin
-    //     count_q <= count_q + 8'b0000_0001;
-    // end
-
-    assign count_out = count_q;
 
 endmodule
 

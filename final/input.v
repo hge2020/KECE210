@@ -20,7 +20,7 @@ always @(posedge clk or negedge rst) begin
     end
     else begin
         if (keypad_in && ~temp) begin
-            case(Keypad_in)
+            case(keypad_in)
             12'b0000_0000_0001: scan_out<= 4'b0000; //0
             12'b0000_0000_0010: scan_out<= 4'b0001; //1
             12'b0000_0000_1000: scan_out<= 4'b0011; //3

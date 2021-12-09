@@ -11,7 +11,7 @@ always @(posedge clk) begin
         out <= 6'b0;
     end
     else begin
-        case({c_value1[1], {c_value1[0], c_value2[1], {c_value2[0]})
+        case({c_value1[1], c_value1[0], c_value2[1], c_value2[0]})
         4'b01_00: out <= 100_000;
         4'b10_00: out <= 010_000;
         4'b11_00: out <= 001_000;
@@ -107,9 +107,9 @@ module LCD (
     wire LCD_RS1, LCD_RS2, LCD_RS3, LCD_RS4;
     wire LCD_RW1, LCD_RW2, LCD_RW3, LCD_RW4;
 
-    LCD_A_win LCD1(resetn,clk,LCD_E1,LCD_RS1,LCD_RW1,w_lcd1);
-    LCD_B_win LCD2(resetn,clk,LCD_E2,LCD_RS2,LCD_RW2,w_lcd2);
-    LCD_off LCD3(resetn,clk,LCD_E3,LCD_RS3,LCD_RW3,w_lcd3);
+    LCD_A_win LCD1(rst,clk,LCD_E1,LCD_RS1,LCD_RW1,w_lcd1);
+    LCD_B_win LCD2(rst,clk,LCD_E2,LCD_RS2,LCD_RW2,w_lcd2);
+    LCD_off LCD3(rst,clk,LCD_E3,LCD_RS3,LCD_RW3,w_lcd3);
 
     always @(posedge clk) begin
         if (!rst) begin
@@ -120,7 +120,6 @@ module LCD (
         end
         else begin
             case (LCD_sig)
-            end
             2'b01: begin
                 LCD_DATA = w_lcd1;
                 LCD_E=LCD_E1;
@@ -148,13 +147,14 @@ endmodule
 
 module LCD1 ( //P1 Win ♥♥♥ ♥♥♥
         input clk, rst,
-        output LCD_E,LCD_RS,LCD_RW,
-        output [8-1:0] LCD_DATA
+        output wire LCD_E,
+        output reg LCD_RS,LCD_RW,
+        output reg[8-1:0] LCD_DATA
         );
 
-        wire LCD_E;
-        reg LCD_RS,LCD_RW;
-        reg[7:0] LCD_DATA;
+        //wire LCD_E;
+        //reg LCD_RS,LCD_RW;
+        //reg[7:0] LCD_DATA;
         reg[2:0] state;
 
     parameter delay=3'b000;
@@ -168,9 +168,9 @@ module LCD1 ( //P1 Win ♥♥♥ ♥♥♥
 
     integer interval;
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
     begin
-        if(~resetn) state = delay;
+        if(~rst) state = delay;
         else begin
             case(state)
                 delay:          if(interval==70)state=function_set;
@@ -187,9 +187,9 @@ module LCD1 ( //P1 Win ♥♥♥ ♥♥♥
     end
 
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
     begin
-        if(~resetn) interval=0;
+        if(~rst) interval=0;
         else begin   
             case(state)
                 delay:    if(interval>=70) interval=0;      //Write your own code.
@@ -214,10 +214,10 @@ module LCD1 ( //P1 Win ♥♥♥ ♥♥♥
     end
 
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
 
     begin
-        if(~resetn) begin
+        if(~rst) begin
             LCD_RS=1'b1;
             LCD_RW=1'b1;
             LCD_DATA=8'b00000000;
@@ -311,7 +311,6 @@ module LCD1 ( //P1 Win ♥♥♥ ♥♥♥
                 8:begin
                     LCD_RS=1'b1;LCD_DATA=8'b1001_1101;//♥
                 end
-                end
                 9:begin
                     LCD_RS=1'b1;LCD_DATA=8'b0010_0000;//Void
                 end
@@ -347,13 +346,14 @@ endmodule
 
 module LCD2 ( //P2 Win ♥♥♥ ♥♥♥
         input clk, rst,
-        output LCD_E,LCD_RS,LCD_RW,
-        output [8-1:0] LCD_DATA
+        output wire LCD_E,
+        output reg LCD_RS,LCD_RW,
+        output reg[8-1:0] LCD_DATA
         );
 
-        wire LCD_E;
-        reg LCD_RS,LCD_RW;
-        reg[7:0] LCD_DATA;
+        //wire LCD_E;
+        //reg LCD_RS,LCD_RW;
+        //reg[7:0] LCD_DATA;
         reg[2:0] state;
 
     parameter delay=3'b000;
@@ -367,9 +367,9 @@ module LCD2 ( //P2 Win ♥♥♥ ♥♥♥
 
     integer interval;
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
     begin
-        if(~resetn) state = delay;
+        if(~rst) state = delay;
         else begin
             case(state)
                 delay:          if(interval==70)state=function_set;
@@ -386,9 +386,9 @@ module LCD2 ( //P2 Win ♥♥♥ ♥♥♥
     end
 
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
     begin
-        if(~resetn) interval=0;
+        if(~rst) interval=0;
         else begin   
             case(state)
                 delay:    if(interval>=70) interval=0;      //Write your own code.
@@ -413,10 +413,10 @@ module LCD2 ( //P2 Win ♥♥♥ ♥♥♥
     end
 
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
 
     begin
-        if(~resetn) begin
+        if(~rst) begin
             LCD_RS=1'b1;
             LCD_RW=1'b1;
             LCD_DATA=8'b00000000;
@@ -510,7 +510,6 @@ module LCD2 ( //P2 Win ♥♥♥ ♥♥♥
                 8:begin
                     LCD_RS=1'b1;LCD_DATA=8'b1001_1101;//♥
                 end
-                end
                 9:begin
                     LCD_RS=1'b1;LCD_DATA=8'b0010_0000;//Void
                 end
@@ -546,13 +545,14 @@ endmodule
 
 module LCD3 ( //void
         input clk, rst,
-        output LCD_E,LCD_RS,LCD_RW,
-        output [8-1:0] LCD_DATA
+        output wire LCD_E,
+        output reg LCD_RS,LCD_RW,
+        output reg[8-1:0] LCD_DATA
         );
 
-        wire LCD_E;
-        reg LCD_RS,LCD_RW;
-        reg[7:0] LCD_DATA;
+        //wire LCD_E;
+        //reg LCD_RS,LCD_RW;
+        //reg[7:0] LCD_DATA;
         reg[2:0] state;
 
     parameter delay=3'b000;
@@ -566,9 +566,9 @@ module LCD3 ( //void
 
     integer interval;
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
     begin
-        if(~resetn) state = delay;
+        if(~rst) state = delay;
         else begin
             case(state)
                 delay:          if(interval==70)state=function_set;
@@ -585,9 +585,9 @@ module LCD3 ( //void
     end
 
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
     begin
-        if(~resetn) interval=0;
+        if(~rst) interval=0;
         else begin   
             case(state)
                 delay:    if(interval>=70) interval=0;      //Write your own code.
@@ -612,10 +612,10 @@ module LCD3 ( //void
     end
 
 
-    always @(negedge resetn or posedge clk)
+    always @(negedge rst or posedge clk)
 
     begin
-        if(~resetn) begin
+        if(~rst) begin
             LCD_RS=1'b1;
             LCD_RW=1'b1;
             LCD_DATA=8'b00000000;

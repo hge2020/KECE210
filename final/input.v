@@ -1,5 +1,5 @@
 module keypad_scan( //리셋없음
-    input clk, rst
+    input clk, rst,
     input [12-1:0] keypad_in,
     output reg [4-1:0] scan_out,
     output reg valid
@@ -27,6 +27,7 @@ always @(posedge clk or negedge rst) begin
             12'b0000_1000_0000: scan_out<= 4'b0111; //7
             12'b0010_0000_0000: scan_out<= 4'b1001; //9
             default: scan_out<= 4'b0000; //0
+            endcase
             valid <= 1'b1;
             temp <= 1'b1;
         end

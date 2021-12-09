@@ -4,9 +4,9 @@ module top_inner_process(
     output  led_1_r, led_1_g, led_1_b,
             led_2_r, led_2_g, led_2_b,
     output [7-1:0] seg_display,
-    output [8-1:0] seg_position;
+    output [8-1:0] seg_position
 );
-    reg [4-1:0] key_scan;
+    wire [4-1:0] key_scan;
     wire keypad_valid;
     wire random_enable;
     wire turn_whose;
@@ -14,9 +14,8 @@ module top_inner_process(
     wire [5-1:0] randn;
     wire [5-1:0] rand_player1, rand_player2;
     wire [5-1:0] value_player1, value_player2;
-
-wire [4-1:0] key_scan;
-    wire keypad_valid;
+    wire [14-1:0] seg;
+    
 
 keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in({b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12}), 
 .scan_out(key_scan), .valid(keypad_valid));

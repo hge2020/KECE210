@@ -11,6 +11,7 @@ module top_Halli_Galli (
     wire [4-1:0] key_scan;
     wire keypad_valid;
     wire random_enable;
+    wire score_control_fin;
     wire turn_whose;
     wire [8-1:0] nofcard;
     wire [5-1:0] randn;
@@ -28,7 +29,7 @@ keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in({b1, b2, b3, b4, b5, b6, b7,
 
 turn whose_turn (.clk(clk), .rst(rst), .keypad_in(key_scan),
 .en(random_enable), .whose(turn_whose));
-counter card_count(.clk(clk), .rst(rst), .en(random_enable),
+counter card_count(.clk(clk), .rst(rst), .en(random_enable), .finish(score_control_fin),
 .count(nofcard));
 rand_gen rgen(.clk(clk), .rst(rst), .en(random_enable),
 .rnd(randn));
@@ -44,8 +45,8 @@ is_right right(.clk(clk), .rst(rst), keypad_in(key_scan),
 .right(right));
 who_push who(.clk(clk), .rst(rst), .keypad_in(key_scan),
 .savewho1(whop[0]), .savewho2(whop[1]));
-score_control score_c (.clk(clk), .rst(rst), .count(nofcard), .right(right), .who({whop[0], whop[1]}),
-.scoreA(score_weight[16-1:8]), .scoreB(score_weight[8-1:0]));
+score_control score_c (.clk(clk), .rst(rst), .count(nofcard), .right(right), .who({whop[1], whop[0]}),
+.scoreA(score_weight[16-1:8]), .scoreB(score_weight[8-1:0]), .finish(score_control_fin));
 score_file score_r (.clk(clk), .rst(rst), .add_score(score_weight),
 .total_score(total_score));
 who_win winner(.clk(clk), .rst(rst), .scoreA(total_score[18-1:9]), .scoreB(total_score[9-1:0]),

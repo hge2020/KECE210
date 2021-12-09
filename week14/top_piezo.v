@@ -1,96 +1,39 @@
-module top_piezo_tone (
+module top_piezo(
     input clk, rst,
-    input [12-1:0] keypad_in
-    output piezo_out
-); //clk :  1MHz
+    input [12-1:0] keypad_in,
+    output sound_out
+);
+    integer counter_sound;
+    integer sound_limit;
+	reg buffer;
 
-wire [12-1:0] key;
-wire valid;
+	always @ (keypad_in) begin
+		case (keypad_in)
+            12'b000000000001: sound_limit = 1910; //C
+            12'b000000000010: sound_limit = 1701; //D
+            12'b000000000100: sound_limit = 1516; //E
+            12'b000000001000: sound_limit = 1431; //F
+            12'b000000010000: sound_limit = 1275; //G
+            12'b000000100000: sound_limit = 1135; //A
+            12'b000001000000: sound_limit = 1011; //B
+            12'b000010000000: sound_limit = 955; //C
+		    default: sound_limit = 0; //no sound
+		endcase
+	end
 
-keypad_scan scan(.clk(clk), .rst(rst), .keypad_in(keypad_in), .scan_out(key), .valid(valid));
-piezo_tone piezo(.clk(clk), .rst(rst), .in(key), .valid(valid), .To_piezo(piezo_out));
-
-endmodule
-
-
-module keypad_scan(
-        input clk, rst,
-        input [12-1:0] keypad_in,
-        output reg [12-1:0] scan_out,
-        output reg valid
-    );
-        reg enable;
-
-        always @(posedge clk or negedge rst) begin
-            if (~rst) begin
-                scan_out <= 12'd0;
-                valid <= 1'b0;
-                enable <= 1'b0;
-            end
-            else begin
-                if (keypad_in && ~enable) begin
-                    scan_out <= keypad_in;
-                    valid <= 1'b1;
-                    enable <= 1'b1;
-                end
-                else if (keypad_in && enable) begin
-                    scan_out <= 12'd0;
-                    valid <= 1'b0;
-                end
-                else begin
-                    enable <= 1'b0;
-                    valid <= 1'b0;
-                    scan_out <= 12'd0;
-                end
-            end
-        end
-
-endmodule
-
-
-
-module piezo_tone (
-        input clk, rst,
-        input [12-1:0] in,
-        input valid,
-        output wire To_piezo
-    );
-    reg temp;
-    reg [7:0] CNT_SOUND, frequency;
-
-    localparam TEST = 32'haaaaaa;
-
-
-    always @(in) begin
-        case (in)
-            12'b0000_0000_0001: frequency = 1910; //1
-            12'b0000_0000_0010: frequency = 1701; //2
-            12'b0000_0000_0100: frequency = 1516; //3
-            12'b0000_0000_1000: frequency = 1431; //4
-            12'b0000_0001_0000: frequency = 1275; //5
-            12'b0000_0010_0000: frequency = 1135; //6
-            12'b0000_0100_0000: frequency = 1011; //7
-            12'b0000_1000_0000: frequency = 955; //8
-            default: frequency = 0;
-        endcase
-    end
-
-    always @(posedge clk) begin
-        if (rst) begin
-            temp = 1'b0;
-            CNT_SOUND = 0;
-        end
+	always@(posedge clk or negedge rst)begin
+		if (~rst) begin
+			buffer <= 1'b0;
+			counter_sound = 0;
+		end
         else begin
-            if (CNT_SOUND >= frequency) begin
-                cnt_SOUND = 0;
-                temp = ~temp;
-            end
-            else CNT_SOUND = CNT_SOUND +1;
-
-            
+            if (counter_sound >= sound_limit) begin
+				counter_sound = 0;
+				buffer <= ~buffer;
+			end
+			else counter_sound = counter_sound +1;
         end
-    end
-
-    assign To_piezo = temp;
+	end
+	assign sound_out = buffer;
 
 endmodule

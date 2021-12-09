@@ -179,30 +179,27 @@ endmodule //검증완료. finish는 who값에 의해 제어됩니다!<<둘이 �
 module reg_score (
         input clk, rst,
         input [8-1:0] add_score,
-        output reg [9-1:0] total_score
+        output reg [8-1:0] total_score
     );
 
-        reg [9-1:0] q_total_score, feedback;
+        reg [8-1:0] q_total_score, feedback;
 
     //assign total_score = q_total_score;
 
     always @(posedge clk) begin
         if (!rst) begin
-            total_score <= 9'b0;
-            q_total_score <= 9'b0;
-            feedback <= 9'b0;
+            total_score <= 8'b0;
+            q_total_score <= 8'b0;
+            feedback <= 8'b0;
         end
         else begin
             q_total_score <= feedback;
         end
     end
-
-    always @ (posedge clk) begin
-        feedback <= q_total_score + add_score;
-    end
-
-    always @ (add_score) begin
-        total_score <= q_total_score + add_score;
+    
+    always @(add_score) begin
+        feedback = q_total_score + add_score;
+        total_score = feedback; 
     end
 
 endmodule
@@ -212,18 +209,18 @@ endmodule
 module score_file (
     input clk, rst,
     input [16-1:0] add_score,
-    output [18-1:0] total_score
+    output [16-1:0] total_score
 );
 
-reg_score A(.clk(clk), .rst(rst), .add_score(add_score[8-1:0]), .total_score(total_score[9-1:0]));
-reg_score B(.clk(clk), .rst(rst), .add_score(add_score[16-1:8]), .total_score(total_score[18-1:9]));
+reg_score A(.clk(clk), .rst(rst), .add_score(add_score[8-1:0]), .total_score(total_score[8-1:0]));
+reg_score B(.clk(clk), .rst(rst), .add_score(add_score[16-1:8]), .total_score(total_score[16-1:8]));
 
 endmodule
 
 
 module who_win ( // 검증완료
         input clk, rst,
-        input [9-1:0] scoreA, scoreB,
+        input [8-1:0] scoreA, scoreB,
         output reg [2-1:0] LCD_sig
     );
     always @(posedge clk) begin
@@ -231,8 +228,8 @@ module who_win ( // 검증완료
             LCD_sig = 2'b0;
         end
         else begin
-            if (scoreA > scoreB+9'b00011_0010) LCD_sig <= 2'b01;
-            else if (scoreB > scoreA+9'b00011_0010) LCD_sig <= 2'b10;
+            if (scoreA > scoreB+8'b0011_0010) LCD_sig <= 2'b01;
+            else if (scoreB > scoreA+8'b0011_0010) LCD_sig <= 2'b10;
             else LCD_sig <= 2'b00;
         end
     end

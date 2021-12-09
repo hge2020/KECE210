@@ -20,7 +20,7 @@ module top_Halli_Galli (
     wire right;
     wire [2-1:0] whop;
     wire [16-1:0] score_weight;
-    wire [18-1:0] total_score;
+    wire [16-1:0] total_score;
     wire [2-1:0] LCD_sig;
     wire [14-1:0] seg;
 
@@ -49,7 +49,7 @@ score_control score_c (.clk(clk), .rst(rst), .count(nofcard), .right(right), .wh
 .scoreA(score_weight[16-1:8]), .scoreB(score_weight[8-1:0]), .finish(score_control_fin));
 score_file score_r (.clk(clk), .rst(rst), .add_score(score_weight),
 .total_score(total_score));
-who_win winner(.clk(clk), .rst(rst), .scoreA(total_score[18-1:9]), .scoreB(total_score[9-1:0]),
+who_win winner(.clk(clk), .rst(rst), .scoreA(total_score[16-1:8]), .scoreB(total_score[8-1:0]),
 .LCD_sig(LCD_sig));
 
 full_c_LED led(.clk(clk), .rst(rst), .c_value1(value_player1[5-1:3]), .c_value2(value_player2[5-1:3]),

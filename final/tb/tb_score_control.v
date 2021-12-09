@@ -27,6 +27,7 @@ initial begin
     #20 who <= 10;
     #20 who <= 00;
     #20 who <= 11;
+    #20 count <= 50;
     #40 right <= 1;
     #20 who <= 01;
     #20 who <= 10;

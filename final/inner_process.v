@@ -111,8 +111,7 @@ module counter (
         end
     end
 
-    always @(posedge en)
-    begin
+    always @(posedge en) begin
         en_update = 1'b1;
     end
 

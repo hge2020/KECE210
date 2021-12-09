@@ -35,7 +35,7 @@ endmodule
 
 
 
-module who_push (
+module who_push (     //검증완료
         input clk, rst, finish,
         input [4-1:0] keypad_in,
         output reg savewho1, savewho2
@@ -133,7 +133,7 @@ endmodule
 
 
 
-module score_control (
+module score_control ( 
         input clk, rst,
         input [8-1:0] count,
         input right,
@@ -179,27 +179,33 @@ endmodule //검증완료. finish는 who값에 의해 제어됩니다!<<둘이 �
 module reg_score (
         input clk, rst,
         input [8-1:0] add_score,
-        output [9-1:0] total_score
+        output reg [9-1:0] total_score
     );
 
         reg [9-1:0] q_total_score, feedback;
 
-    assign total_score = q_total_score;
+    //assign total_score = q_total_score;
 
     always @(posedge clk) begin
         if (!rst) begin
+            total_score <= 9'b0;
             q_total_score <= 9'b0;
+            feedback <= 9'b0;
         end
         else begin
             q_total_score <= feedback;
         end
     end
 
-    always @(*) begin
-        feedback = q_total_score + add_score;
+    always @ (posedge clk) begin
+        feedback <= q_total_score + add_score;
     end
 
-endmodule //이거좀..... 계속 덧셈하고 막 값 초기화되고 난리남ㅋㅋ
+    always @ (add_score) begin
+        total_score <= q_total_score + add_score;
+    end
+
+endmodule
 
 
 

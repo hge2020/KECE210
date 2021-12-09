@@ -24,11 +24,12 @@
 	- rand gen  
 		5bit 무작위 random값을 만든다. /inner
 	- card_value1  
-		5bit register. LED와 7seg의 값을 저장한다. *range가 0~3이므로 %3연산, *range가 0~7이므로 %5연산  /inner
+		5bit register. random값에 대해 LED는 range가 0~3이므로 %3연산, seg는 range가 0~7이므로 %5연산 하여 LED와 7seg의 값을 저장한다. /inner
 	- card_value2  
-		5bit register. LED와 7seg의 값을 저장한다. /inner
-	- 쌓인 개수 counter  
-		turn에서 enable이 들어올때마다 1올리기. 점수컨트롤에게 값을 준다. /inner
+		5bit register. random값에 대해 LED는 range가 0~3이므로 %3연산, seg는 range가 0~7이므로 %5연산 하여 LED와 7seg의 값을 저장한다. /inner
+	- counter  
+		turn에서 enable이 들어올때마다 1올리기. 점수컨트롤에게 값을 준다.
+		finish값이 들어와 점수 계산이 완료되었음을 알리면 counter값을 초기화시킨다./inner
 	- LED  
 		temp1과 temp2의 값(앞 2bit)을 받아와 LED를 색상에 맞게 켠다. /output
 	- display  
@@ -38,10 +39,10 @@
 	
 
 2. 점수 판정
-	- 올바르게 쳤는지 판정  
+	- is_right  
 		temp1과 temp2의 값을 받아와 올바르게 쳤는지 판정하고 점수 control에게 값을 보내줌. /inner
-	- 친사람 판정  
-		개빠른 clock으로 간발의 차를 감지, 해당 턴에서 친 사람을 저장하고 있는다. /inner
+	- who_push  
+		키패드값을 읽어와 해당 턴에서 친 사람을 저장하고 있는다. finish 신호가 들어오면 /inner
 	- score_reg_file  
 		reg1 reg2 묶기 /inner
 	- 점수 reg1  
@@ -49,10 +50,11 @@
 	- 점수 reg2  
 		player 2의 점수를 저장 /inner
 	- 점수 control  
-		- 올바르게 친 경우 /inner
-			쌓인개수 counter과 친 사람 판정값을 받아와, 해당 점수 reg에 counter 값을 더해줌. 쌓인개수 counter 값 내보냄.
+		- 올바르게 친 경우 
+			쌓인개수 counter과 친 사람 판정값을 받아와, 해당 점수 reg에 쌓인개수 counter 값 내보냄. 다른 reg에는 0을 내보냄.
 		- 틀리게 친 경우
-			친 사람 판정값을 받아와 해당 점수 reg에는 -1값을, 다른 reg에는 +1값을 더해줌.
+			친 사람 판정값을 받아와 해당 점수 reg에는 -1값을, 다른 reg에는 +1값을 내보냄.  
+		값을 내보낸 후 finish신호를 제공, count값과 who_push값을 초기화시켜줌. /inner
 	- 승패판정  
 		만약 reg의 값 차이가 50 이상이면 우승자를 보여주고 게임 종료. /inner
 	- LCD /output

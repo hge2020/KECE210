@@ -82,27 +82,27 @@ always @(posedge clk) begin
         end
         3'b001: begin
             data_pos <= 8'b1111_1101;
-            data_out <= 7'b0;
+            data_out <= 7'b1;
         end
         3'b010: begin
             data_pos <= 8'b1111_1011;
-            data_out <= 7'b0;
+            data_out <= 7'b1;
         end
         3'b011: begin
             data_pos <= 8'b1111_0111;
-            data_out <= 7'b0;
+            data_out <= 7'b1;
         end
         3'b100: begin
             data_pos <= 8'b1110_1111;
-            data_out <= 7'b0;
+            data_out <= 7'b1;
         end
         3'b101: begin
             data_pos <= 8'b1101_1111;
-            data_out <= 7'b0;
+            data_out <= 7'b1;
         end
         3'b110: begin
             data_pos <= 8'b1011_1111;
-            data_out <= 7'b0;
+            data_out <= 7'b1;
         end
         3'b111: begin
             data_pos <= 8'b0111_1111;

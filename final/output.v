@@ -139,10 +139,10 @@ module LED (
         else begin
             case (LCD_sig)
             2'b01: begin
-                {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b1;
+                {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b1111_0000;
             end
             2'b10: begin
-                {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b1;
+                {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b0000_1111;
             end
             default begin
                 {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b0;

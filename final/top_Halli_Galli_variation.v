@@ -29,8 +29,10 @@ keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in({b12, b11, b10, b9, b8, b7, 
 
 turn whose_turn (.clk(clk), .rst(rst), .keypad_in(key_scan),
 .en(random_enable), .whose(turn_whose));
-// counter card_count(.clk(clk), .rst(rst), .en(random_enable), .finish(score_control_fin),
-// .rnd(randn));
+counter card_count(.clk(clk), .rst(rst), .en(random_enable), .finish(score_control_fin),
+.count(nofcard));
+pseudo_random rgen(.clk(clk), .rst(rst), .en(random_enable),
+.rnd(randn));
 demux dmux(.clk(clk), .rst(rst), .whose(turn_whose), .rnd(randn),
 .card_value1(rand_player1), .card_value2(rand_player2));
 card_value value_p1 (.clk(clk), .rst(rst), .rnd(rand_player1),

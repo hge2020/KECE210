@@ -39,18 +39,18 @@ module display (
     output reg [7-1:0] seg
 );
 
-always @(posedge clk) begin
+always @(*) begin
     if(!rst) begin
-        seg <= 7'b111_1111;
+        seg = 7'b111_1111;
     end
     else begin
         case(c_value)
-        3'b001: seg <= 7'b100_1111; //1
-        3'b010: seg <= 7'b001_0010; //2
-        3'b011: seg <= 7'b000_0110; //3
-        3'b100: seg <= 7'b100_1100; //4
-        3'b101: seg <= 7'b010_0100; //5
-        default: seg <= 7'b111_1111; //void
+        3'b001: seg = 7'b100_1111; //1
+        3'b010: seg = 7'b001_0010; //2
+        3'b011: seg = 7'b000_0110; //3
+        3'b100: seg = 7'b100_1100; //4
+        3'b101: seg = 7'b010_0100; //5
+        default: seg = 7'b111_1111; //void
         endcase
     end
 end
@@ -69,51 +69,58 @@ module seven_segment (
 
 always @(posedge clk) begin
     if(!rst) begin
-        data_pos <= 8'b0;
-        data_out <= 7'b0;
         count_q <= 3'b0;
     end
     else begin
         count_q <= count_d;
-        case(count_q)
-        3'b000: begin
-            data_pos <= 8'b1111_1110;
-            data_out <= seg1;
-        end
-        3'b001: begin
-            data_pos <= 8'b1111_1101;
-            data_out <= 7'b1;
-        end
-        3'b010: begin
-            data_pos <= 8'b1111_1011;
-            data_out <= 7'b1;
-        end
-        3'b011: begin
-            data_pos <= 8'b1111_0111;
-            data_out <= 7'b1;
-        end
-        3'b100: begin
-            data_pos <= 8'b1110_1111;
-            data_out <= 7'b1;
-        end
-        3'b101: begin
-            data_pos <= 8'b1101_1111;
-            data_out <= 7'b1;
-        end
-        3'b110: begin
-            data_pos <= 8'b1011_1111;
-            data_out <= 7'b1;
-        end
-        3'b111: begin
-            data_pos <= 8'b0111_1111;
-            data_out <= seg2;
-        end
-        endcase
     end
 end
 
 always @(*) begin
-    count_d = count_q + 3'b1;
+    if(!rst) begin
+        data_pos = 8'b0;
+        data_out = 7'b0;
+        count_d = 3'b0;
+    end
+    else begin
+        count_d = count_q + 3'b1;
+
+        case(count_q)
+        3'b000: begin
+            data_pos = 8'b1111_1110;
+            data_out = seg1;
+        end
+        3'b001: begin
+            data_pos = 8'b1111_1101;
+            data_out = 7'b1;
+        end
+        3'b010: begin
+            data_pos = 8'b1111_1011;
+            data_out = 7'b1;
+        end
+        3'b011: begin
+            data_pos = 8'b1111_0111;
+            data_out = 7'b1;
+        end
+        3'b100: begin
+            data_pos = 8'b1110_1111;
+            data_out = 7'b1;
+        end
+        3'b101: begin
+            data_pos = 8'b1101_1111;
+            data_out = 7'b1;
+        end
+        3'b110: begin
+            data_pos = 8'b1011_1111;
+            data_out = 7'b1;
+        end
+        3'b111: begin
+            data_pos = 8'b0111_1111;
+            data_out = seg2;
+        end
+        endcase
+    end
+    
 end
 
 endmodule
@@ -136,7 +143,7 @@ module LCD (
     LCD2 LCD_B_win(rst,clk,LCD_E2,LCD_RS2,LCD_RW2,w_lcd2);
     LCD3 LCD_off(rst,clk,LCD_E3,LCD_RS3,LCD_RW3,w_lcd3);
 
-    always @(posedge clk) begin
+    always @(posedge clk) begin // ???
         if (!rst) begin
             LCD_E <= 1'b0;
             LCD_RS <= 1'b0;

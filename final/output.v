@@ -12,15 +12,17 @@ always @(posedge clk) begin
     end
     else begin
         case({c_value1[1], c_value1[0]})
-        2'b01: out[6-1:3] <= 100;
-        2'b10: out[6-1:3] <= 010;
-        2'b11: out[6-1:3] <= 001;
+        2'b01: out[6-1:3] <= 3'b100;
+        2'b10: out[6-1:3] <= 3'b010;
+        2'b11: out[6-1:3] <= 3'b001;
+        default: out[6-1:3] <= 3'b000;
         endcase
 
         case({c_value2[1], c_value2[0]})
-        2'b01: out[3-1:0] <= 100;
-        2'b10: out[3-1:0] <= 010;
-        2'b11: out[3-1:0] <= 001;
+        2'b01: out[3-1:0] <= 3'b100;
+        2'b10: out[3-1:0] <= 3'b010;
+        2'b11: out[3-1:0] <= 3'b001;
+        default: out[3-1:0] <= 3'b000;
         endcase
     end
 end

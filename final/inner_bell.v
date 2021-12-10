@@ -88,7 +88,7 @@ module who_push (     //검증완료
                 end
             end
             p1_push: begin
-                if (finish == !0) begin
+                if (finish == 1'b1) begin
                     finite_state <= no_one;
                     savewho1 <= 1'b0;
                     savewho2 <= 1'b0;
@@ -100,7 +100,7 @@ module who_push (     //검증완료
                 end
             end
             p2_push: begin
-                if (finish == !0) begin
+                if (finish == 1'b1) begin
                     finite_state <= no_one;
                     savewho1 <= 1'b0;
                     savewho2 <= 1'b0;

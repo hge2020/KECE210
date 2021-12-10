@@ -117,7 +117,7 @@ module pseudo_random (
         cnt <= 8'b0;
     end
     else begin
-        cnt <= cnt + (!en);
+        cnt <= cnt + (en);
         case(cnt)
         8'b00000000 : rnd <= 5'b00110;
         8'b00000001 : rnd <= 5'b00001;

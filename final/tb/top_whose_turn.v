@@ -8,7 +8,7 @@ module top_turn (
     // wire demmy;
 
 
-keypad_scan scn(.clk(clk), .rst(rst), .keypad_in(keypad_in), .scan_out({l3, l2, l1, l0}), .valid(dummy));
+keypad_scan scn(.clk(clk), .rst(rst), .keypad_in(keypad_in), .scan_out({l3, l2, l1, l0}));
 // turn tunr(.clk(clk), .rst(rst), .keypad_in(keypad_scan), .en(en), .whose(whose));
 
 assign {l4, l5, l6, l7} = {1'b1, 1'b1, 1'b1, 1'b1};

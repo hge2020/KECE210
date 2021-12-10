@@ -30,7 +30,7 @@ turn whose_turn (.clk(clk), .rst(rst), .keypad_in(key_scan),
 .en(random_enable), .whose(turn_whose));
 counter card_count(.clk(clk), .rst(rst), .en(random_enable), .finish(score_control_fin),
 .count(nofcard));
-rand_gen rgen(.clk(clk), .rst(rst), .en(random_enable),
+pseudo_random rgen(.clk(clk), .rst(rst), .en(random_enable),
 .rnd(randn));
 demux dmux(.clk(clk), .rst(rst), .whose(turn_whose), .rnd(randn),
 .card_value1(rand_player1), .card_value2(rand_player2));

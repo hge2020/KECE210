@@ -226,7 +226,7 @@ module who_win ( // 검증완료
         else begin
             if (scoreA > scoreB+8'b0000_1001) LCD_sig <= 2'b01;
             else if (scoreB > scoreA+8'b0000_1001) LCD_sig <= 2'b10;
-            else LCD_sig <= LCD_sig;
+            else LCD_sig <= 2'b00;
         end
     end
 

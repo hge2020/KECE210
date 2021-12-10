@@ -107,8 +107,8 @@ module rand_gen (
             buffer_q <= 5'b0;
         end
         else begin
-            rand_q <= 5'b11100 //nxt_rand_q;
-            buffer_q <= 5'b0 //nxt_buffer_q;
+            rand_q <= 5'b11100; //nxt_rand_q;
+            buffer_q <= 5'b0; //nxt_buffer_q;
         end
     end
 

@@ -45,7 +45,7 @@
 module keypad_scan( //리셋없음
     input clk, rst,
     input [12-1:0] keypad_in,
-    output reg [4-1:0] scan_out,
+    output reg [4-1:0] scan_out
 ); //버튼 받아서 몇번이 눌렸는지 4bit으로 내보냄.
 
     reg temp;

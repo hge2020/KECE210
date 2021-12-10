@@ -38,23 +38,20 @@ module display (
     input [3-1:0] c_value,
     output reg [7-1:0] seg
 );
-    reg [7-1:0] temp;
 
 always @(posedge clk) begin
     if(~rst) begin
         seg <= 7'b0;
-        temp <= 7'b0;
     end
     else begin
         case(c_value)
-        3'b001: temp <= 7'b0110000; //1
-        3'b010: temp <= 7'b1101101; //2
-        3'b011: temp <= 7'b1111001; //3
-        3'b100: temp <= 7'b0110011; //4
-        3'b101: temp <= 7'b1011011; //5
-        default: temp <= 7'b0000000; //void
+        3'b001: seg <= 7'b0110000; //1
+        3'b010: seg <= 7'b1101101; //2
+        3'b011: seg <= 7'b1111001; //3
+        3'b100: seg <= 7'b0110011; //4
+        3'b101: seg <= 7'b1011011; //5
+        default: seg <= 7'b0000000; //void
         endcase
-        seg <= temp;
     end
 end
 

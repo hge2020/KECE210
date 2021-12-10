@@ -45,11 +45,11 @@ always @(posedge clk) begin
     end
     else begin
         case(c_value)
-        3'b001: seg <= 7'b0110000; //1
-        3'b010: seg <= 7'b1101101; //2
-        3'b011: seg <= 7'b1111001; //3
-        3'b100: seg <= 7'b0110011; //4
-        3'b101: seg <= 7'b1011011; //5
+        3'b001: seg <= 7'b100_1111; //1
+        3'b010: seg <= 7'b001_0010; //2
+        3'b011: seg <= 7'b000_0110; //3
+        3'b100: seg <= 7'b100_1100; //4
+        3'b101: seg <= 7'b010_0100; //5
         default: seg <= 7'b111_1111; //void
         endcase
     end

@@ -40,8 +40,8 @@ module display (
 );
 
 always @(posedge clk) begin
-    if(~rst) begin
-        seg <= 7'b0;
+    if(!rst) begin
+        seg <= 7'b111_1111;
     end
     else begin
         case(c_value)
@@ -50,7 +50,7 @@ always @(posedge clk) begin
         3'b011: seg <= 7'b1111001; //3
         3'b100: seg <= 7'b0110011; //4
         3'b101: seg <= 7'b1011011; //5
-        default: seg <= 7'b0000000; //void
+        default: seg <= 7'b111_1111; //void
         endcase
     end
 end
@@ -68,7 +68,7 @@ module seven_segment (
     reg [3-1:0] count_q, count_d;
 
 always @(posedge clk) begin
-    if(~rst) begin
+    if(!rst) begin
         data_pos <= 8'b0;
         data_out <= 7'b0;
         count_q <= 3'b0;

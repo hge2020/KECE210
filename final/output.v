@@ -66,7 +66,7 @@ module seven_segment (
     output reg [7-1:0] data_out,
     output reg [8-1:0] data_pos
 );
-    reg [2-1:0] count = 2'b0;
+    reg [3-1:0] count = 2'b0;
 
 always @(posedge clk) begin
     if(~rst) begin
@@ -76,16 +76,36 @@ always @(posedge clk) begin
     else begin
         count <= count+1'b1;
         case(count)
-        2'b00: begin
+        3'b000: begin
             data_pos <= 0000_0001;
             data_out <= seg1;
         end
-        2'b01: begin
-            data_pos <= 1000_0000;
-            data_out <= seg2;
+        3'b001: begin
+            data_pos <= 0000_0010;
+            data_out <= 7'b0;
         end
-        default: begin
-            data_pos <= 8'b0;
+        3'b010: begin
+            data_pos <= 0000_0100;
+            data_out <= 7'b0;
+        end
+        3'b011: begin
+            data_pos <= 0000_1000;
+            data_out <= 7'b0;
+        end
+        3'b100: begin
+            data_pos <= 0001_0000;
+            data_out <= 7'b0;
+        end
+        3'b101: begin
+            data_pos <= 0010_0000;
+            data_out <= 7'b0;
+        end
+        3'b110: begin
+            data_pos <= 0100_0000;
+            data_out <= 7'b0;
+        end
+        3'b111: begin
+            data_pos <= 1000_0000;
             data_out <= 7'b0;
         end
         endcase

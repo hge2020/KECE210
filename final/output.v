@@ -79,35 +79,35 @@ always @(posedge clk) begin
         count <= count+1'b1;
         case(count)
         3'b000: begin
-            data_pos <= 0000_0001;
+            data_pos <= 8'b0000_0001;
             data_out <= seg1;
         end
         3'b001: begin
-            data_pos <= 0000_0010;
+            data_pos <= 8'b0000_0010;
             data_out <= 7'b0;
         end
         3'b010: begin
-            data_pos <= 0000_0100;
+            data_pos <= 8'b0000_0100;
             data_out <= 7'b0;
         end
         3'b011: begin
-            data_pos <= 0000_1000;
+            data_pos <= 8'b0000_1000;
             data_out <= 7'b0;
         end
         3'b100: begin
-            data_pos <= 0001_0000;
+            data_pos <= 8'b0001_0000;
             data_out <= 7'b0;
         end
         3'b101: begin
-            data_pos <= 0010_0000;
+            data_pos <= 8'b0010_0000;
             data_out <= 7'b0;
         end
         3'b110: begin
-            data_pos <= 0100_0000;
+            data_pos <= 8'b0100_0000;
             data_out <= 7'b0;
         end
         3'b111: begin
-            data_pos <= 1000_0000;
+            data_pos <= 8'b1000_0000;
             data_out <= seg2;
         end
         endcase

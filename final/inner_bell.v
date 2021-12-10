@@ -55,7 +55,7 @@ module who_push (     //검증완료
         end
     end
 
-    always @(posedge clk or keypad_in) begin
+    always @( posedge clk ) begin
         case(finite_state)
         no_one: begin
             if (keypad_in == 4'b0111) begin

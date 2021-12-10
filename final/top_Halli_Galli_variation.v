@@ -2,7 +2,7 @@ module top_Halli_Galli (
     input clk, rst,
     input b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12,
     output  led_1_r, led_1_g, led_1_b,
-            led_2_r, led_2_g, led_2_b,]
+            led_2_r, led_2_g, led_2_b,
     output l0, l1, l2, l3, l4, l5, l6, l7,
     output [7-1:0] seg_display,
     output [8-1:0] seg_position,
@@ -42,7 +42,7 @@ is_right correct(.clk(clk), .rst(rst), .keypad_in(key_scan),
 .c1(value_player1[5-1:3]), .c2(value_player2[5-1:3]), .n1(value_player1[3-1:0]), .n2(value_player2[3-1:0]),
 .right(right));
 who_push who(.clk(clk), .rst(rst), .finish(score_control_fin), .keypad_in(key_scan),
-.savewho1(l0), .savewho2(l1);
+.savewho1(l0), .savewho2(l1));
 // score_control score_c (.clk(clk), .rst(rst), .count(nofcard), .right(right), .who({whop[1], whop[0]}),
 // .scoreA(score_weight[16-1:8]), .scoreB(score_weight[8-1:0]), .finish(score_control_fin));
 // score_file score_r (.clk(clk), .rst(rst), .add_score(score_weight),

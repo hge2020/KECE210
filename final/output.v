@@ -163,7 +163,7 @@ always @(*) begin
     //     end
     //     endcase
     // end
-    count_d = count_q + 3'd1;
+    //count_d = count_q + 3'd1;
 
     // case(count_q)
     // 3'b000: begin

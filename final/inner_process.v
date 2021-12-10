@@ -140,22 +140,22 @@ module card_value (
             number <= 3'b0;
         end
         else begin
-            case (rnd[4:3])
+            case (rnd[5-1:3])
             2'b00: color <= 2'b01;
             2'b01: color <= 2'b10;
             2'b10: color <= 2'b11;
             2'b11: color <= 2'b01;
             endcase
-            case (rnd[2:0])
-            3'b000: color <= 3'b001;
-            3'b001: color <= 3'b010;
-            3'b010: color <= 3'b011;
-            3'b011: color <= 3'b100;
-            3'b100: color <= 3'b101;
+            case (rnd[3-1:0])
+            3'b000: number <= 3'b001;
+            3'b001: number <= 3'b010;
+            3'b010: number <= 3'b011;
+            3'b011: number <= 3'b100;
+            3'b100: number <= 3'b101;
 
-            3'b101: color <= 3'b001;
-            3'b110: color <= 3'b010;
-            3'b111: color <= 3'b011;
+            3'b101: number <= 3'b001;
+            3'b110: number <= 3'b010;
+            3'b111: number <= 3'b011;
             endcase
         end
     end

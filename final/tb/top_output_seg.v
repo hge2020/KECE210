@@ -1,6 +1,5 @@
 module top_output_seg(
     input clk, rst,
-    input D9, D8, D7, D6, D5, D4, D3, D2, D1, D0,
     output [7-1:0] seg_display,
     output [8-1:0] seg_position
 );

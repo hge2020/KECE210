@@ -13,8 +13,15 @@ module tb_text_lcd;
 
     initial begin
         #10 rst <= ~rst;
+        #10 en <= 1'b1;
+        #10 en <= 1'b0;
+        #10 en <= 1'b1;
+        #10 en <= 1'b0;
+        #10 en <= 1'b1;
+        #10 en <= 1'b0;
+        #10 en <= 1'b1;
         #8000 rst <= ~rst;
-        forever #10 en <= ~en;
+        
         #100 $finish;
     end
 

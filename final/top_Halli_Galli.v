@@ -9,7 +9,6 @@ module top_Halli_Galli (
     output wire [7:0] LCD_DATA
 );
     wire [4-1:0] key_scan;
-    wire keypad_valid;
     wire random_enable;
     wire score_control_fin;
     wire turn_whose;
@@ -25,7 +24,7 @@ module top_Halli_Galli (
     wire [14-1:0] seg;
 
 keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in({b12, b11, b10, b9, b8, b7, b6, b5, b4, b3, b2, b1}), 
-.scan_out(key_scan), .valid(keypad_valid));
+.scan_out(key_scan));
 
 turn whose_turn (.clk(clk), .rst(rst), .keypad_in(key_scan),
 .en(random_enable), .whose(turn_whose));

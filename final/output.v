@@ -83,7 +83,7 @@ always @(*) begin
         count_d = 3'd0;
     end
     else begin
-        count_d = count_q + 3'b1;
+        count_d = count_q + 3'd1;
 
         case(count_q)
         3'b000: begin

@@ -2,11 +2,18 @@ module top_output_seg(
     input clk, rst,
     input D9, D8, D7, D6, D5, D4, D3, D2, D1, D0,
     output [7-1:0] seg_display,
-    output [8-1:0] seg_position,
-)
+    output [8-1:0] seg_position
+);
+
+reg [5-1:0] value_player1, value_player2;
+wire [14-1:0] seg;
 
 always @(clk) begin
     if (!rst) begin
+        value_player1 <= 00_000;
+        value_player2 <= 00_000;
+    end
+    else begin
         value_player1 <= 00_001;
         value_player2 <= 00_010;
     end

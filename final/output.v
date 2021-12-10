@@ -43,18 +43,17 @@ always @(posedge clk) begin
         seg <= 7'b0;
         temp <= 7'b0;
     end
-end
-
-always @(posedge clk) begin
-    case(c_value)
+    else begin
+        case(c_value)
         3'b001: temp <= 7'b0110000; //1
         3'b010: temp <= 7'b1101101; //2
         3'b011: temp <= 7'b1111001; //3
         3'b100: temp <= 7'b0110011; //4
         3'b101: temp <= 7'b1011011; //5
         default: temp <= 7'b0000000; //void
-    endcase
-    seg <= temp;
+        endcase
+        seg <= temp;
+    end
 end
 
 endmodule

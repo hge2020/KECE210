@@ -77,50 +77,50 @@ module rand_gen (
         input en,
         output wire [5-1:0] rnd
     );
+        // reg [5-1:0] rand_q, nxt_rand_q;
+        // reg [5-1:0] buffer_q, nxt_buffer_q;
+        // reg en_update;
+
         reg [5-1:0] rand_q, nxt_rand_q;
-        reg [5-1:0] buffer_q, nxt_buffer_q;
         reg en_update;
-
-    //     reg [5-1:0] rand_q, nxt_rand_q;
-    //     reg en_update;
-    //     assign rnd = rand_q;
-
-    // always @(posedge clk) begin
-        
-    //     if (!rst) rand_q <= 5'b11100;
-    //     else begin
-    //         if (en_update) begin
-    //             rand_q <= nxt_rand_q;
-    //         end
-    //         else begin
-    //             rand_q <= rand_q;
-    //         end
-    //     end
-    //     if (en) en_update <= 1'b1;
-    //     else en_update <= 1'b0;
-    // end
+        assign rnd = rand_q;
 
     always @(posedge clk) begin
         
-        if (!rst) begin
-            rand_q <= 5'b11100;
-            buffer_q <= 5'b0;
-        end
+        if (!rst) rand_q <= 5'b11100;
         else begin
-            rand_q <= nxt_rand_q;
-            buffer_q <= nxt_buffer_q;
+            if (en_update) begin
+                rand_q <= nxt_rand_q;
+            end
+            else begin
+                rand_q <= rand_q;
+            end
         end
+        if (en) en_update <= 1'b1;
+        else en_update <= 1'b0;
     end
 
-    assign rnd = (en) ? nxt_rand_q : buffer_q;
+    // always @(posedge clk) begin
+        
+    //     if (!rst) begin
+    //         rand_q <= 5'b11100;
+    //         buffer_q <= 5'b0;
+    //     end
+    //     else begin
+    //         rand_q <= nxt_rand_q;
+    //         buffer_q <= nxt_buffer_q;
+    //     end
+    // end
 
-    always @(*) begin
-        nxt_rand_q = rand_q << 1;
-        nxt_rand_q[0] = rand_q[2] ^ rand_q[4];
+    // assign rnd = (en) ? nxt_rand_q : buffer_q;
 
-        if (en) nxt_buffer_q = nxt_rand_q;
-        else nxt_buffer_q = buffer_q;
-    end
+    // always @(*) begin
+    //     nxt_rand_q = rand_q << 1;
+    //     nxt_rand_q[0] = rand_q[2] ^ rand_q[4];
+
+    //     if (en) nxt_buffer_q = nxt_rand_q;
+    //     else nxt_buffer_q = buffer_q;
+    // end
 
 endmodule //검증완료
 

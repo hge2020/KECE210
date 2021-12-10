@@ -78,7 +78,7 @@ module rand_gen (
         output wire [5-1:0] rnd
     );
         // reg [5-1:0] rand_q, nxt_rand_q;
-        reg [5-1:0] buffer_q, nxt_buffer_q;
+        //reg [5-1:0] buffer_q, nxt_buffer_q;
         // reg en_update;
 
         reg [5-1:0] rand_q, nxt_rand_q;
@@ -112,14 +112,14 @@ module rand_gen (
     //     end
     // end
 
-    assign rnd = (en) ? nxt_rand_q : buffer_q;
+    //assign rnd = (en) ? nxt_rand_q : buffer_q;
 
     always @(*) begin
         nxt_rand_q = rand_q << 1;
         nxt_rand_q[0] = rand_q[2] ^ rand_q[4];
 
-        if (en) nxt_buffer_q = nxt_rand_q;
-        else nxt_buffer_q = buffer_q;
+        // if (en) nxt_buffer_q = nxt_rand_q;
+        // else nxt_buffer_q = buffer_q;
     end
 
 endmodule //검증완료

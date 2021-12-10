@@ -31,47 +31,47 @@ module tb_top_Halli_Galli;
         b10 <= 1'b0;
         b11 <= 1'b0;
         b12 <= 1'b0;        
-        forever #1 clk <= ~clk;
+        forever #10 clk <= ~clk;
     end
 
     initial begin
         #5 rst <= 1'b1;
 
-        #5 b1 <= 1'b1; // press '1'
-        #5 b1 <= 1'b0;
+        #7 b1 <= 1'b1; // press '1'
+        #7 b1 <= 1'b0;
 
-        #5 b3 <= 1'b1; // press '3'
-        #5 b3 <= 1'b0;
+        #7 b3 <= 1'b1; // press '3'
+        #7 b3 <= 1'b0;
 
-        #5 b1 <= 1'b1; // press '1'
-        #5 b1 <= 1'b0;
+        #7 b1 <= 1'b1; // press '1'
+        #7 b1 <= 1'b0;
 
-        #5 b3 <= 1'b1; // press '3'
-        #5 b3 <= 1'b0;
+        #7 b3 <= 1'b1; // press '3'
+        #7 b3 <= 1'b0;
 
-        #5 b1 <= 1'b1; // press '1'
-        #5 b1 <= 1'b0;
+        #7 b1 <= 1'b1; // press '1'
+        #7 b1 <= 1'b0;
 
-        #5 b3 <= 1'b1; // press '3'
-        #5 b3 <= 1'b0;
+        #7 b3 <= 1'b1; // press '3'
+        #7 b3 <= 1'b0;
         
-        #5 b1 <= 1'b1; // press '1'
-        #5 b1 <= 1'b0;
+        #7 b1 <= 1'b1; // press '1'
+        #7 b1 <= 1'b0;
 
-        #5 b3 <= 1'b1; // press '3'
-        #5 b3 <= 1'b0;
+        #7 b3 <= 1'b1; // press '3'
+        #7 b3 <= 1'b0;
 
-        #5 b1 <= 1'b1; // press '1'
-        #5 b1 <= 1'b0;
+        #7 b1 <= 1'b1; // press '1'
+        #7 b1 <= 1'b0;
 
-        #5 b3 <= 1'b1; // press '3'
-        #5 b3 <= 1'b0;
+        #7 b3 <= 1'b1; // press '3'
+        #7 b3 <= 1'b0;
 
-        #5 b1 <= 1'b1; // press '1'
-        #5 b1 <= 1'b0;
+        #7 b1 <= 1'b1; // press '1'
+        #7 b1 <= 1'b0;
 
-        #5 b3 <= 1'b1; // press '3'
-        #5 b3 <= 1'b0;
+        #7 b3 <= 1'b1; // press '3'
+        #7 b3 <= 1'b0;
 
         #50 rst <= 1'b0;
     end

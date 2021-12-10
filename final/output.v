@@ -66,12 +66,12 @@ module seven_segment (
     output reg [7-1:0] data_out,
     output reg [8-1:0] data_pos
 );
-    reg [3-1:0] count_q, count_d;
+    reg [3-1:0] count_q;// count_d;
 
 initial
 begin
     count_q = 3'd0;
-    count_d = 3'd0;
+    //count_d = 3'd0;
 end
 
 always @(posedge clk) begin
@@ -81,7 +81,42 @@ always @(posedge clk) begin
     // else begin
     //     count_q <= count_d;
     // end
-    count_q <= count_d;
+    count_q <= count_q + 3'd1;
+
+    case(count_q)
+    3'b000: begin
+        data_pos <= 8'b1111_1110;
+        data_out <= seg1;
+    end
+    3'b001: begin
+        data_pos <= 8'b1111_1101;
+        data_out <= 7'd1;
+    end
+    3'b010: begin
+        data_pos <= 8'b1111_1011;
+        data_out <= 7'd1;
+    end
+    3'b011: begin
+        data_pos <= 8'b1111_0111;
+        data_out <= 7'd1;
+    end
+    3'b100: begin
+        data_pos <= 8'b1110_1111;
+        data_out <= 7'd1;
+    end
+    3'b101: begin
+        data_pos <= 8'b1101_1111;
+        data_out <= 7'd1;
+    end
+    3'b110: begin
+        data_pos <= 8'b1011_1111;
+        data_out <= 7'd1;
+    end
+    3'b111: begin
+        data_pos <= 8'b0111_1111;
+        data_out <= seg2;
+    end
+    endcase
 end
 
 always @(*) begin
@@ -130,40 +165,40 @@ always @(*) begin
     // end
     count_d = count_q + 3'd1;
 
-    case(count_q)
-    3'b000: begin
-        data_pos = 8'b1111_1110;
-        data_out = seg1;
-    end
-    3'b001: begin
-        data_pos = 8'b1111_1101;
-        data_out = 7'd1;
-    end
-    3'b010: begin
-        data_pos = 8'b1111_1011;
-        data_out = 7'd1;
-    end
-    3'b011: begin
-        data_pos = 8'b1111_0111;
-        data_out = 7'd1;
-    end
-    3'b100: begin
-        data_pos = 8'b1110_1111;
-        data_out = 7'd1;
-    end
-    3'b101: begin
-        data_pos = 8'b1101_1111;
-        data_out = 7'd1;
-    end
-    3'b110: begin
-        data_pos = 8'b1011_1111;
-        data_out = 7'd1;
-    end
-    3'b111: begin
-        data_pos = 8'b0111_1111;
-        data_out = seg2;
-    end
-    endcase
+    // case(count_q)
+    // 3'b000: begin
+    //     data_pos = 8'b1111_1110;
+    //     data_out = seg1;
+    // end
+    // 3'b001: begin
+    //     data_pos = 8'b1111_1101;
+    //     data_out = 7'd1;
+    // end
+    // 3'b010: begin
+    //     data_pos = 8'b1111_1011;
+    //     data_out = 7'd1;
+    // end
+    // 3'b011: begin
+    //     data_pos = 8'b1111_0111;
+    //     data_out = 7'd1;
+    // end
+    // 3'b100: begin
+    //     data_pos = 8'b1110_1111;
+    //     data_out = 7'd1;
+    // end
+    // 3'b101: begin
+    //     data_pos = 8'b1101_1111;
+    //     data_out = 7'd1;
+    // end
+    // 3'b110: begin
+    //     data_pos = 8'b1011_1111;
+    //     data_out = 7'd1;
+    // end
+    // 3'b111: begin
+    //     data_pos = 8'b0111_1111;
+    //     data_out = seg2;
+    // end
+    // endcase
 end
 
 endmodule

@@ -15,36 +15,36 @@ always @(posedge clk) begin
         count_q <= count_d;
         case(count_q)
         3'b000: begin
-            data_pos <= 8'b0000_0001;
-            data_out <= 7'b0110000;
+            data_pos <= 8'b1111_1110;
+            data_out <= 7'100_1111;
         end
         3'b001: begin
-            data_pos <= 8'b0000_0010;
+            data_pos <= 8'b1111_1101;
             data_out <= 7'b0;
         end
         3'b010: begin
-            data_pos <= 8'b0000_0100;
+            data_pos <= 8'b1111_1011;
             data_out <= 7'b0;
         end
         3'b011: begin
-            data_pos <= 8'b0000_1000;
+            data_pos <= 8'b1111_0111;
             data_out <= 7'b0;
         end
         3'b100: begin
-            data_pos <= 8'b0001_0000;
+            data_pos <= 8'b1110_1111;
             data_out <= 7'b0;
         end
         3'b101: begin
-            data_pos <= 8'b0010_0000;
+            data_pos <= 8'b1101_1111;
             data_out <= 7'b0;
         end
         3'b110: begin
-            data_pos <= 8'b0100_0000;
+            data_pos <= 8'b1011_1111;
             data_out <= 7'b0;
         end
         3'b111: begin
-            data_pos <= 8'b1000_0000;
-            data_out <= 7'b1111001;
+            data_pos <= 8'b0111_1111;
+            data_out <= 7'b000_0110;
         end
         endcase
     end

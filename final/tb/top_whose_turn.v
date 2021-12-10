@@ -11,6 +11,6 @@ keypad_scan scn(.clk(clk), .rst(rst), .keypad_in(keypad_in), .scan_out(keypad_sc
 turn tunr(.clk(clk), .rst(rst), .keypad_in(keypad_scan), .en(en), .whose(whose));
 rand_gen rgen(.clk(clk), .rst(rst), .en(en), .rnd({l3, l4, l5, l6, l7}));
 
-assign {l0, l1, l2} = {1'b1, 1'b1, 1'b1, 1'b1, 1'b1};
+assign {l0, l1, l2} = {en, whose, 1'b1};
 
 endmodule

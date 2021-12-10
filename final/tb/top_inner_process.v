@@ -41,6 +41,6 @@ display dis1(.clk(clk), .rst(rst), .c_value(value_player1[3-1:0]),
 display dis2(.clk(clk), .rst(rst), .c_value(value_player2[3-1:0]),
 .seg(seg[7-1:0]));
 seven_segment seg_7(.clk(clk), .rst(rst), .seg1(seg[14-1:7]),. seg2(seg[7-1:0]),
-.date_out(seg_display), .date_pos(seg_position));
+.data_out(seg_display), .data_pos(seg_position));
 
 endmodule

@@ -103,6 +103,7 @@ always @(posedge clk) begin
         3'b110: begin
             data_pos <= 8'b1011_1111;
             data_out <= 7'b0;
+        end
         3'b111: begin
             data_pos <= 8'b0111_1111;
             data_out <= seg2;

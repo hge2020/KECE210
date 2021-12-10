@@ -3,7 +3,7 @@ module seven_segment (
     output reg [7-1:0] data_out,
     output reg [8-1:0] data_pos
 );
-    reg [3-1:0] count_q count_d;
+    reg [3-1:0] count_q, count_d;
 
 always @(posedge clk) begin
     if(~rst) begin

@@ -47,7 +47,7 @@ module who_push (     //검증완료
     reg [1:0] finite_state;
     //savewho1 [player1], savewho2 [player2]
 
-    always @(posedge clk or keypad_in) begin
+    always @(posedge clk) begin
         if (~rst) begin
             finite_state <= no_one;
             savewho1 <= 1'b0;
@@ -177,18 +177,25 @@ module reg_score (
 
     always @(posedge clk) begin
         if (!rst) begin
-            total_score <= 8'b0;
+            //total_score <= 8'b0;
             q_total_score <= 8'b0;
-            feedback <= 8'b0;
+            //feedback <= 8'b0;
         end
         else begin
             q_total_score <= feedback;
         end
     end
     
-    always @(add_score) begin
-        feedback = q_total_score + add_score;
-        total_score = feedback; 
+    always @(*) begin
+        if (!rst) begin
+            feedback = 8'b0;
+            total_score = 8'b0;
+        end
+        else begin
+            feedback = q_total_score + add_score;
+            total_score = feedback; 
+        end
+        
     end
 
 endmodule

@@ -2,7 +2,7 @@ module tb_text_lcd;
     reg clk, rst, en;
     wire [5-1:0] rnd;
 
-    rand_gen tbrand_gen(.clk(clk), .rst(rst), .en(en), .rnd(rnd));
+    pseudo_random rand (.clk(clk), .rst(rst), .en(en), .rnd(rnd));
 
     initial begin
         clk <= 1'b1;
@@ -13,16 +13,12 @@ module tb_text_lcd;
 
     initial begin
         #10 rst <= ~rst;
-        #10 en <= 1'b1;
-        #10 en <= 1'b0;
-        #10 en <= 1'b1;
-        #10 en <= 1'b0;
-        #10 en <= 1'b1;
-        #10 en <= 1'b0;
-        #10 en <= 1'b1;
         #8000 rst <= ~rst;
-        
         #100 $finish;
+    end
+
+    initial begin
+        forever #10 en <= ~en;
     end
 
 endmodule

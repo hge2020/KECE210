@@ -5,25 +5,25 @@ module is_right (               //검증 완료
         input [3-1:0] n1, n2,
         output reg right
     );
-    always @(posedge clk) begin
-        if (!rst) begin
-            right <= 1'b0;
-        end
-    end
 
-    always @(keypad_in) begin
-        if (keypad_in == 4'b0111 || keypad_in == 4'b1001)begin
-            if (c1 == c2) begin
-                if ((n1 + n2) == 4'b0101) right <= 1'b1;
-                else right <= 1'b0;
-            end
-            else begin
-                if (n1 == 3'b101 || n2 == 3'b101) right <= 1'b1;
-                else right <= 1'b0;
-            end
+    always @(*) begin
+        if (!rst) begin
+            right = 1'b0;
         end
         else begin
-            right <= 1'b0;
+            if (keypad_in == 4'b0111 || keypad_in == 4'b1001)begin
+                if (c1 == c2) begin
+                    if ((n1 + n2) == 4'b0101) right = 1'b1;
+                    else right = 1'b0;
+                end
+                else begin
+                    if (n1 == 3'b101 || n2 == 3'b101) right = 1'b1;
+                    else right = 1'b0;
+                end
+            end
+            else begin
+                right = 1'b0;
+            end
         end
     end
 
@@ -55,7 +55,7 @@ module who_push (     //검증완료
         end
     end
 
-    always @( posedge clk ) begin
+    always @(posedge clk or keypad_in) begin
         case(finite_state)
         no_one: begin
             if (keypad_in == 4'b0111) begin

@@ -4,19 +4,7 @@ module top_output_seg(
     output [8-1:0] seg_position
 );
 
-reg [5-1:0] value_player1, value_player2;
 wire [14-1:0] seg;
-
-always @(clk) begin
-    if (!rst) begin
-        value_player1 <= 00_000;
-        value_player2 <= 00_000;
-    end
-    else begin
-        value_player1 <= 00_001;
-        value_player2 <= 00_010;
-    end
-end
 
 display dis1(.clk(clk), .rst(rst), .c_value(3'b001),
 .seg(seg[14-1:7]));

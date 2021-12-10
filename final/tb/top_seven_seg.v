@@ -16,7 +16,7 @@ always @(posedge clk) begin
         case(count_q)
         3'b000: begin
             data_pos <= 8'b1111_1110;
-            data_out <= 7'100_1111;
+            data_out <= 7'b100_1111;
         end
         3'b001: begin
             data_pos <= 8'b1111_1101;

@@ -107,20 +107,20 @@ module rand_gen (
             buffer_q <= 5'b0;
         end
         else begin
-            rand_q <= 5'b11100; //nxt_rand_q;
-            buffer_q <= 5'b0; //nxt_buffer_q;
+            rand_q <= nxt_rand_q;
+            buffer_q <= nxt_buffer_q;
         end
     end
 
     assign rnd = (en) ? nxt_rand_q : buffer_q;
 
-    // always @(*) begin
-    //     nxt_rand_q = rand_q << 1;
-    //     nxt_rand_q[0] = rand_q[2] ^ rand_q[4];
+    always @(*) begin
+        nxt_rand_q = rand_q << 1;
+        nxt_rand_q[0] = rand_q[2] ^ rand_q[4];
 
-    //     if (en) nxt_buffer_q = nxt_rand_q;
-    //     else nxt_buffer_q = buffer_q;
-    // end
+        if (en) nxt_buffer_q = nxt_rand_q;
+        else nxt_buffer_q = buffer_q;
+    end
 
 endmodule //검증완료
 

@@ -18,7 +18,7 @@ module top_is_right(
     wire right;
     wire [14-1:0] seg;
 
-keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in({b12, b11, b10, b9, b8, b7, b6, b5, b4, b3, b2, b1}), 
+keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in(keypad_in), 
 .scan_out(key_scan));
 
 turn whose_turn (.clk(clk), .rst(rst), .keypad_in(key_scan),
@@ -45,3 +45,5 @@ display dis2(.clk(clk), .rst(rst), .c_value(value_player2[3-1:0]),
 .seg(seg[7-1:0]));
 seven_segment seg_7(.clk(clk), .rst(rst), .seg1(seg[14-1:7]),. seg2(seg[7-1:0]),
 .data_out(seg_display), .data_pos(seg_position));
+
+endmodule

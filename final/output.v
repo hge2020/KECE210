@@ -126,6 +126,31 @@ end
 
 endmodule
 
+module LED (
+    input clk, rst,
+    input [2-1:0] LCD_sig,
+    output reg l0, l1, l2, l3, l4, l5, l6, l7
+);
+
+    always @(posedge clk) begin
+        if (!rst) begin
+            {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b0;
+        end
+        else begin
+            case (LCD_sig)
+            2'b01: begin
+                {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b1;
+            end
+            2'b10: begin
+                {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b1;
+            end
+            default begin
+                {l0, l1, l2, l3, l4, l5, l6, l7} <= 8'b0;
+            end
+            endcase
+        end
+    end
+endmodule
 
 
 module LCD (

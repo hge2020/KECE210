@@ -1,4 +1,4 @@
-module top_randgen (
+module top_turn (
     input clk, rst,
     input [12-1:0] keypad_in,
     output l0, l1, l2, l3, l4, l5, l6, l7

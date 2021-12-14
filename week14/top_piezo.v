@@ -31,7 +31,7 @@ module top_piezo_tone(
 				counter_sound = 0;
 				buffer <= ~buffer;
 			end
-			else counter_sound = counter_sound +1;
+			else counter_sound = counter_sound +1'b1;
         end
 	end
 	assign sound_out = buffer;

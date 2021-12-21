@@ -5,8 +5,7 @@ module top_Halli_Galli (
             led_2_r, led_2_g, led_2_b,
     output [7-1:0] seg_display,
     output [8-1:0] seg_position,
-    output wire LCD_E, LCD_RS, LCD_RW,
-    output wire [7:0] LCD_DATA
+    output l0, l1, l2, l3, l4, l5, l6, l7
 );
     wire [4-1:0] key_scan;
     wire random_enable;
@@ -20,8 +19,8 @@ module top_Halli_Galli (
     wire [2-1:0] whop;
     wire [16-1:0] score_weight;
     wire [16-1:0] total_score;
-    wire [2-1:0] LCD_sig;
-    wire [14-1:0] seg;
+    wire [2-1:0] LED_sig;
+
 
 keypad_scan keypad(.clk(clk), .rst(rst), .keypad_in({b12, b11, b10, b9, b8, b7, b6, b5, b4, b3, b2, b1}), 
 .scan_out(key_scan));
@@ -49,7 +48,7 @@ score_control score_c (.clk(clk), .rst(rst), .count(nofcard), .right(right), .wh
 score_file score_r (.clk(clk), .rst(rst), .add_score(score_weight),
 .total_score(total_score));
 who_win winner(.clk(clk), .rst(rst), .scoreA(total_score[16-1:8]), .scoreB(total_score[8-1:0]),
-.LCD_sig(LCD_sig));
+.LED_sig(LED_sig));
 
 full_c_LED led(.clk(clk), .rst(rst), .c_value1(value_player1[5-1:3]), .c_value2(value_player2[5-1:3]),
 .led_1_r(led_1_r), .led_1_g(led_1_g), .led_1_b(led_1_b),
@@ -60,6 +59,9 @@ display dis2(.clk(clk), .rst(rst), .c_value(value_player2[3-1:0]),
 .seg(seg[7-1:0]));
 seven_segment seg_7(.clk(clk), .rst(rst), .seg1(seg[14-1:7]),. seg2(seg[7-1:0]),
 .data_out(seg_display), .data_pos(seg_position));
+
+LED led(.clk(clk), .rst(rst), .LED_sig(LED_sig), .led({l7, l6, l5, l4, l3, l2, l1, l0}));
+
 LCD lcd(.clk(clk), .rst(rst), .LCD_sig(LCD_sig),
 .LCD_E(LCD_E), .LCD_RS(LCD_RS), .LCD_RW(LCD_RW), .LCD_DATA(LCD_DATA));
 

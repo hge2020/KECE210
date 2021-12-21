@@ -186,7 +186,7 @@ module reg_score (
         end
     end
     
-    always @(*) begin
+    always (add_score) begin
         if (!rst) begin
             feedback = 8'b0;
             total_score = 8'b0;
@@ -195,8 +195,19 @@ module reg_score (
             feedback = q_total_score + add_score;
             total_score = feedback; 
         end
-        
     end
+
+    // always @(*) begin
+    //     if (!rst) begin
+    //         feedback = 8'b0;
+    //         total_score = 8'b0;
+    //     end
+    //     else begin
+    //         feedback = q_total_score + add_score;
+    //         total_score = feedback; 
+    //     end
+        
+    // end
 
 endmodule
 
@@ -217,16 +228,16 @@ endmodule
 module who_win ( // 검증완료
         input clk, rst,
         input [8-1:0] scoreA, scoreB,
-        output reg [2-1:0] LCD_sig
+        output reg [2-1:0] LED_sig
     );
     always @(posedge clk) begin
         if (!rst) begin
-            LCD_sig = 2'b0;
+            LED_sig = 2'b0;
         end
         else begin
-            if (scoreA > scoreB+8'b0000_1001) LCD_sig <= 2'b01;
-            else if (scoreB > scoreA+8'b0000_1001) LCD_sig <= 2'b10;
-            else LCD_sig <= 2'b00;
+            if (scoreA > scoreB+8'b0000_1001) LED_sig <= 2'b01;
+            else if (scoreB > scoreA+8'b0000_1001) LED_sig <= 2'b10;
+            else LED_sig <= 2'b00;
         end
     end
 

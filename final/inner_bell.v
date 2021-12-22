@@ -186,7 +186,7 @@ module reg_score (
         end
     end
     
-    always (add_score) begin
+    always @(add_score) begin
         if (!rst) begin
             feedback = 8'b0;
             total_score = 8'b0;

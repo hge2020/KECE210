@@ -19,6 +19,7 @@ module top_Halli_Galli (
     wire [2-1:0] whop;
     wire [16-1:0] score_weight;
     wire [16-1:0] total_score;
+    wire [14-1:0] seg;
     wire [2-1:0] LED_sig;
 
 
@@ -29,7 +30,7 @@ turn whose_turn (.clk(clk), .rst(rst), .keypad_in(key_scan),
 .en(random_enable), .whose(turn_whose));
 counter card_count(.clk(clk), .rst(rst), .en(random_enable), .finish(score_control_fin),
 .count(nofcard));
-pseudo_random rgen(.clk(clk), .rst(rst), .en(random_enable),
+rand_gen rgen(.clk(clk), .rst(rst), .en(random_enable),
 .rnd(randn));
 demux dmux(.clk(clk), .rst(rst), .whose(turn_whose), .rnd(randn),
 .card_value1(rand_player1), .card_value2(rand_player2));
@@ -60,7 +61,7 @@ display dis2(.clk(clk), .rst(rst), .c_value(value_player2[3-1:0]),
 seven_segment seg_7(.clk(clk), .rst(rst), .seg1(seg[14-1:7]),. seg2(seg[7-1:0]),
 .data_out(seg_display), .data_pos(seg_position));
 
-LED led(.clk(clk), .rst(rst), .LED_sig(LED_sig), .led({l7, l6, l5, l4, l3, l2, l1, l0}));
+LED ledcontrol(.clk(clk), .rst(rst), .LED_sig(LED_sig), .led({l7, l6, l5, l4, l3, l2, l1, l0}));
 
 LCD lcd(.clk(clk), .rst(rst), .LCD_sig(LCD_sig),
 .LCD_E(LCD_E), .LCD_RS(LCD_RS), .LCD_RW(LCD_RW), .LCD_DATA(LCD_DATA));

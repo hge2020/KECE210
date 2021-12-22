@@ -3,8 +3,6 @@ module tb_inner_process;
     reg [4-1:0] key_scan;
     wire [5-1:0] value_player1, value_player2;
 
-
-    wire keypad_valid;
     wire random_enable;
     wire turn_whose;
     wire [8-1:0] nofcard;

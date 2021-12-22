@@ -4,16 +4,14 @@ module tb_top_Halli_Galli;
     wire led_1_r, led_1_g, led_1_b, led_2_r, led_2_g, led_2_b;
     wire [7-1:0] seg_display;
     wire [8-1:0] seg_position;
-    wire LCD_E, LCD_RS, LCD_RW;
-    wire [7:0] LCD_DATA;
+    wire l0, l1, l2, l3, l4, l5, l6, l7;
 
     top_Halli_Galli simul(
         .clk(clk), .rst(rst),
         .b1(b1), .b2(b2), .b3(b3), .b4(b4), .b5(b5), .b6(b6), .b7(b7), .b8(b8), .b9(b9), .b10(b10), .b11(b11), .b12(b12),
         .led_1_r(led_1_r), .led_1_g(led_1_g), .led_1_b(led_1_b), .led_2_r(led_2_r), .led_2_g(led_2_g), .led_2_b(led_2_b),
         .seg_display(seg_display), .seg_position(seg_position),
-        .LCD_E(LCD_E), .LCD_RS(LCD_RS), .LCD_RW(LCD_RW),
-        .LCD_DATA(LCD_DATA)
+        .l0(l0), .l1(l1), .l2(l2), .l3(l3), .l4(l4), .l5(l5), .l6(l6), .l7(l7)
     );
 
     initial begin

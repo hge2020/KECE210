@@ -63,7 +63,4 @@ seven_segment seg_7(.clk(clk), .rst(rst), .seg1(seg[14-1:7]),. seg2(seg[7-1:0]),
 
 LED ledcontrol(.clk(clk), .rst(rst), .LED_sig(LED_sig), .led({l7, l6, l5, l4, l3, l2, l1, l0}));
 
-LCD lcd(.clk(clk), .rst(rst), .LCD_sig(LCD_sig),
-.LCD_E(LCD_E), .LCD_RS(LCD_RS), .LCD_RW(LCD_RW), .LCD_DATA(LCD_DATA));
-
 endmodule

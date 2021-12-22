@@ -84,7 +84,7 @@ module rand_gen (
     always @(posedge clk) begin
         
         if (!rst) begin
-            rand_q <= 5'b11100;
+            rand_q <= 5'b10100;
             buffer_q <= 5'd0;
         end
         else begin

@@ -52,7 +52,7 @@ always @(*) begin
         3'b011: seg = 7'b100_1111; //3
         3'b100: seg = 7'b110_0110; //4
         3'b101: seg = 7'b110_1101; //5
-        default: seg = 7'b111_1111; //void
+        default: seg = 7'b000_0000; //void
     endcase
 end
 
@@ -93,27 +93,27 @@ always @(*) begin
         end
         3'b001: begin
             data_pos = 8'b1111_1101;
-            data_out = 7'b1;
+            data_out = 7'b0;
         end
         3'b010: begin
             data_pos = 8'b1111_1011;
-            data_out = 7'b1;
+            data_out = 7'b0;
         end
         3'b011: begin
             data_pos = 8'b1111_0111;
-            data_out = 7'b1;
+            data_out = 7'b0;
         end
         3'b100: begin
             data_pos = 8'b1110_1111;
-            data_out = 7'b1;
+            data_out = 7'b0;
         end
         3'b101: begin
             data_pos = 8'b1101_1111;
-            data_out = 7'b1;
+            data_out = 7'b0;
         end
         3'b110: begin
             data_pos = 8'b1011_1111;
-            data_out = 7'b1;
+            data_out = 7'b0;
         end
         3'b111: begin
             data_pos = 8'b0111_1111;

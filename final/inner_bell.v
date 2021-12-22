@@ -135,29 +135,53 @@ module score_control (
             scoreA <= 8'b0; scoreB <= 8'b0;
             finish <= 1'b0;
         end
-        else begin
-            if ( who == 2'b01 ) begin //A가 눌렀다면
-                if (right) begin
-                    scoreA <= count; scoreB <= 8'b0;
-                end
-                else begin
-                    scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
-                end
-                finish <= 1'b1;
-            end
-            else if ( who == 2'b10 ) begin //B가 눌렀다면
-                if (right) begin
-                    scoreA <= 8'b0; scoreB <= count;
-                end
-                else begin
-                    scoreA <= 8'b0000_0001; scoreB <= 8'b1111_1111; //-1 2'scomplement
-                end
-                finish <= 1'b1;
+        // else begin
+        //     if ( who == 2'b01 ) begin //A가 눌렀다면
+        //         if (right) begin
+        //             scoreA <= count; scoreB <= 8'b0;
+        //         end
+        //         else begin
+        //             scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
+        //         end
+        //         finish <= 1'b1;
+        //     end
+        //     else if ( who == 2'b10 ) begin //B가 눌렀다면
+        //         if (right) begin
+        //             scoreA <= 8'b0; scoreB <= count;
+        //         end
+        //         else begin
+        //             scoreA <= 8'b0000_0001; scoreB <= 8'b1111_1111; //-1 2'scomplement
+        //         end
+        //         finish <= 1'b1;
+        //     end
+        //     else begin
+        //         scoreA <= 8'b0; scoreB <= 8'b0;
+        //         finish <= 1'b0;
+        //     end
+        // end
+    end
+    always @(who) begin
+        if ( who == 2'b01 ) begin //A가 눌렀다면
+            if (right) begin
+                scoreA <= count; scoreB <= 8'b0;
             end
             else begin
-                scoreA <= 8'b0; scoreB <= 8'b0;
-                finish <= 1'b0;
+                scoreA <= 8'b1111_1111; scoreB <= 8'b0000_0001; //-1 2'scomplement
             end
+            finish <= 1'b1;
+        end
+        else if ( who == 2'b10 ) begin //B가 눌렀다면
+            if (right) begin
+                scoreA <= 8'b0; scoreB <= count;
+            end
+            else begin
+                scoreA <= 8'b0000_0001; scoreB <= 8'b1111_1111; //-1 2'scomplement
+            end
+            finish <= 1'b1;
+        end
+        else begin
+            scoreA <= 8'b0; scoreB <= 8'b0;
+            finish <= 1'b0;
         end
     end
 

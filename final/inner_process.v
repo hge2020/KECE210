@@ -52,9 +52,11 @@ module counter (
         input en, finish,
         output reg [8-1:0] count
     );
-
     always @(posedge clk) begin
         if (!rst) begin
+            count <= 8'b0;
+        end
+        if (finish) begin
             count <= 8'b0;
         end
     end

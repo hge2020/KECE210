@@ -47,7 +47,7 @@ module who_push (     //검증완료
     reg [1:0] finite_state;
     //savewho1 [player1], savewho2 [player2]
 
-    always @(posedge clk) begin
+    always @(keypad_in) begin
         if (~rst) begin
             finite_state <= no_one;
             savewho1 <= 1'b0;
